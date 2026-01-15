@@ -1,0 +1,1176 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Introduction par l'exemple à Entity Framework 5 Code First">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/ef5cf-oct-2012/etude-de-cas-avec--postgresql-921.html">
+      
+      
+        <link rel="prev" href="etude-de-cas-avec--oracle-database-express-edition-11g-release-2.html">
+      
+      
+        <link rel="next" href="etude-de-cas-avec--firebird-21.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>6. Etude de cas avec PostgreSQL 9.2.1 - Introduction par l'exemple à Entity Framework 5 Code First</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Introduction par l'exemple à Entity Framework 5 Code First";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-etude-de-cas-avec-postgresql-921" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Introduction par l&#39;exemple à Entity Framework 5 Code First" class="md-header__button md-logo" aria-label="Introduction par l'exemple à Entity Framework 5 Code First" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Introduction par l'exemple à Entity Framework 5 Code First
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6. Etude de cas avec  PostgreSQL 9.2.1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Passer au mode sombre"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer au mode sombre" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Passer au mode clair"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer au mode clair" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/stahe/ef5cf-oct-2012" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Introduction par l&#39;exemple à Entity Framework 5 Code First" class="md-nav__button md-logo" aria-label="Introduction par l'exemple à Entity Framework 5 Code First" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Introduction par l'exemple à Entity Framework 5 Code First
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/stahe/ef5cf-oct-2012" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="introduction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="letude-de-cas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. L'étude de cas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="etude-de-cas-avec-sql-server-express-2012.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Etude de cas avec SQL Server Express 2012
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="etude-de-cas-avec-mysql-5528.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Etude de cas avec MySQL 5.5.28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="etude-de-cas-avec--oracle-database-express-edition-11g-release-2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Etude de cas avec  Oracle Database Express Edition 11g Release 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Etude de cas avec  PostgreSQL 9.2.1
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="etude-de-cas-avec--postgresql-921.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Etude de cas avec  PostgreSQL 9.2.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61-installation-des-outils" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Installation des outils
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-creation-de-la-base-a-partir-des-entites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Création de la base à partir des entités
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-architecture-multi-couche-sappuyant-sur-ef-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Architecture multi-couche s&#x27;appuyant sur EF 5
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="etude-de-cas-avec--firebird-21.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Etude de cas avec  Firebird 2.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Conclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="6-etude-de-cas-avec-postgresql-921">6. Etude de cas avec  <strong>PostgreSQL 9.2.1</strong></h1>
+<h2 id="61-installation-des-outils">6.1. Installation des outils</h2>
+<p>Les outils à installer sont les suivants :</p>
+<ul>
+<li>le SGBD : [http://www.enterprisedb.com/products-services-training/pgdownload#windows] ;</li>
+<li>un outil d&#x27;administration : EMS SQL Manager for PostgreSQL Freeware [http://www.sqlmanager.net/fr/products/postgresql/manager/download].</li>
+</ul>
+<p>Dans les exemples qui suivent, l&#x27;utilisateur <strong>postgres</strong> a le mot de passe <strong>postgres</strong>.</p>
+<p>Lançons PostgreSQL puis l&#x27;outil [SQL Manager Lite for PostgreSQL] avec lequel on va administrer le SGBD.</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000543000001760A1DE264.png" style="display:inline-block; margin:4px;width:17.821cm;height:4.948cm;" /></td></tr></table>
+
+<ul>
+<li>en [1], nous lançons le SGBD PostgreSQL à partir des services Windows ;</li>
+<li>en [2], le service est démarré ;</li>
+</ul>
+<p>Nous lançons maintenant l&#x27;outil [SQL Manager Lite for MySQL] avec lequel on va administrer le SGBD [3].</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005F9000001C516CF5C64.png" style="display:inline-block; margin:4px;width:17.999cm;height:5.332cm;" /></td></tr></table>
+
+<ul>
+<li>en [4], nous créons une nouvelle base ;</li>
+<li>en [5], on indique le nom de la base ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005FC0000026B7FF37AAE.png" style="display:inline-block; margin:4px;width:17.999cm;height:7.273cm;" /></td></tr></table>
+
+<ul>
+<li>en [5], on se connecte en tant que postgres / postgres ;</li>
+<li>en [6], on donne quelques informations ;</li>
+<li>en [7], on valide l&#x27;ordre SQL qui va être exécuté ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000062B000002BE2EE8ECB3.png" style="display:inline-block; margin:4px;width:17.999cm;height:8.001cm;" /></td></tr></table>
+
+<ul>
+<li>en [8], la base a été créée. Elle doit maintenant être enregistrée dans [EMS Manager]. Les informations sont bonnes. On fait [OK] ;</li>
+<li>en [9], on s&#x27;y connecte ;</li>
+<li>en [10], [EMS Manager] affiche la base, pour l&#x27;instant vide. On notera que les tables appartiendront à un schéma appelé <strong>public</strong> [11].</li>
+</ul>
+<p>Nous allons maintenant connecter un projet VS 2012 à cette base.</p>
+<h2 id="62-creation-de-la-base-a-partir-des-entites">6.2. Création de la base à partir des entités</h2>
+<p>Nous commençons par dupliquer le dossier du projet [RdvMedecins-SqlServer-01] dans [RdvMedecins-PostgreSQL-01] [1] :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><p style="margin:0;"><b>1</b></p><img src="images/10000000000000CD0000012D4E2333D3.png" style="display:inline-block; margin:4px;width:3.799cm;height:5.57cm;" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><p style="margin:0;"><b>2</b></p><img src="images/1000000000000221000001C13B6CD8D6.png" style="display:inline-block; margin:4px;width:10.089cm;height:8.31cm;" /></td></tr></table>
+
+<ul>
+<li>en [2], dans VS 2012, nous supprimons le projet [RdvMedecins-SqlServer-01] de la solution ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000006100000027462DF8913.png" style="display:inline-block; margin:4px;width:17.999cm;height:7.281cm;" /></td></tr></table>
+
+<ul>
+<li>en [3], le projet a été supprimé ;</li>
+<li>en [4], on en rajoute un autre. Celui-ci est pris dans le dossier [RdvMedecins-PostgreSQL-01] que nous avons créé précédemment ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000032300000118117E153F.png" style="display:inline-block; margin:4px;width:10.624cm;height:3.704cm;" /></td></tr></table>
+
+<ul>
+<li>en [5], le projet chargé s&#x27;appelle [RdvMedecins-SqlServer-01] ;</li>
+<li>en [6], on change son nom en [RdvMedecins-PostgreSQL-01] ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000062700000248DC41548B.png" style="display:inline-block; margin:4px;width:17.999cm;height:6.673cm;" /></td></tr></table>
+
+<ul>
+<li>en [7], on rajoute un autre projet à la solution. Celui-ci est pris dans le dossier [RdvMedecins-SqlServer-01] du projet que nous avons  supprimé de la solution précédemment ;</li>
+<li>en [8], le projet [RdvMedecins-SqlServer-01] a réintégré la solution.</li>
+</ul>
+<p>Le projet [RdvMedecins-PostgreSQL-01] est identique au projet [RdvMedecins-SqlServer-01]. Il nous faut faire quelques modifications. Dans [App.config], nous allons modifier la chaîne de connexion et le [DbProviderFactory] qu&#x27;on doit adapter à chaque SGBD.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>&lt;!-- chaîne de connexion sur la base --&gt;
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>  &lt;connectionStrings&gt;
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>    &lt;add name=&quot;monContexte&quot; connectionString=&quot;Server=127.0.0.1;Port=5432;Database=rdvmedecins-ef;User Id=postgres;Password=postgres;&quot; providerName=&quot;Npgsql&quot; /&gt;
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>  &lt;/connectionStrings&gt;
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>  &lt;!-- le factory provider --&gt;
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>  &lt;system.data&gt;
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>    &lt;DbProviderFactories&gt;
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>      &lt;add name=&quot;Npgsql Data Provider&quot; invariant=&quot;Npgsql&quot; support=&quot;FF&quot; description=&quot;.Net Framework Data Provider for Postgresql Server&quot; type=&quot;Npgsql.NpgsqlFactory, Npgsql, Version=2.0.11.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7&quot; /&gt;
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>    &lt;/DbProviderFactories&gt;
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>  &lt;/system.data&gt;
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>ligne 3 : l&#x27;utilisateur et son mot de passe ;</li>
+<li>lignes 7-9 : le <em>DbProviderFactory</em>. La ligne 8 référence une DLL [Npgsql] que nous n&#x27;avons pas. On se la procure avec NuGet [1] :</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000062C00000277F7E13816.png" style="display:inline-block; margin:4px;width:17.999cm;height:7.188cm;" /></td></tr></table>
+
+<ul>
+<li>en [2], dans la zone de recherche on tape le mot clé <em>postgresql</em> ;</li>
+<li>en [3], on choisit le paquetage [Npgsql]. C&#x27;est un connecteur ADO.NET pour PostgreSQL ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000003EA000002974545F6D0.png" style="display:inline-block; margin:4px;width:13.256cm;height:8.772cm;" /></td></tr></table>
+
+<ul>
+<li>en [4], deux références ont été ajoutées ;</li>
+<li>en [5], dans [App.config], il faut mettre la version correcte de la DLL. On la trouve dans ses propriétés.</li>
+</ul>
+<p>Dans le fichier [Entites.cs], il faut adapter le schéma des tables qui vont être générées :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>  [Table(&quot;MEDECINS&quot;, Schema = &quot;public&quot;)]
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>  public class Medecin : Personne
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>  {...}
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>  [Table(&quot;CLIENTS&quot;, Schema = &quot;public&quot;)]
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>  public class Client : Personne
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>  {...}
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>  [Table(&quot;CRENEAUX&quot;, Schema = &quot;public&quot;)]
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>  public class Creneau
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>  {...}
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>  [Table(&quot;RVS&quot;, Schema = &quot;public&quot;)]
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a>  public class Rv
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>  {...}
+</code></pre></div></td></tr></table></div>
+<p>Nous avons vu précédemment lors de la création d&#x27;une base PostgreSQL, que les tables appartenaient à un schéma appelé <strong>public</strong>.</p>
+<p>Nous configurons l&#x27;exécution du projet :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000034600000124152767A9.png" style="display:inline-block; margin:4px;width:11.086cm;height:3.863cm;" /></td></tr></table>
+
+<ul>
+<li>en [1], on donne un autre nom à l&#x27;assembly qui va être généré ;</li>
+<li>en [2], ainsi qu&#x27;un autre espace de noms par défaut ;</li>
+<li>en [3], on désigne le programme à exécuter.</li>
+</ul>
+<p>A ce stade, il n&#x27;y a pas d&#x27;erreurs de compilation. Exécutons le programme [CreateDB_01]. On obtient l&#x27;exception suivante :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>Exception non gérée : System.Data.MetadataException: Le schéma spécifié n&#39;est pas valide. Erreurs :
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>(11,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>(23,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>(33,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>(43,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>   à System.Data.Metadata.Edm.StoreItemCollection.Loader.ThrowOnNonWarningErrors
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>()
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>   ...
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>   à RdvMedecins_01.CreateDB_01.Main(String[] args) dans d:\data\istia-1213\c#\d
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>vp\Entity Framework\RdvMedecins\RdvMedecins-Oracle-01\CreateDB_01.cs:ligne 15
+</code></pre></div></td></tr></table></div>
+<p>On se rappelle avoir eu la même erreur avec MySQL et Oracle. C&#x27;est lié au type du champ <em>Timestamp</em> des entités. Nous faisons la même modification qu&#x27;avec Oracle. Dans les entités, nous remplaçons les trois lignes</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>    [Column(&quot;TIMESTAMP&quot;)]
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>    [Timestamp]
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>    public byte[] Timestamp { get; set; }
+</code></pre></div></td></tr></table></div>
+<p>par les suivantes :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>    [ConcurrencyCheck]
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>    [Column(&quot;VERSIONING&quot;)]
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>    public int? Versioning { get; set; }
+</code></pre></div></td></tr></table></div>
+<p>On change le type de la colonne qui passe de <strong>byte[]</strong> à <strong>int?</strong>. Dans le SGBD, nous utiliserons des procédures stockées pour incrémenter cet entier d&#x27;une unité à chaque fois qu&#x27;une ligne sera insérée ou modifiée.</p>
+<p>Nous faisons la modification précédente pour les quatre entités puis nous réexécutons l&#x27;application. Nous obtenons alors l&#x27;erreur suivante :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nx">Exception</span><span class="w"> </span><span class="nx">non</span><span class="w"> </span><span class="nx">gérée</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">System</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">DataException</span><span class="o">:</span><span class="w"> </span><span class="nx">An</span><span class="w"> </span><span class="nx">exception</span><span class="w"> </span><span class="nx">occurred</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nx">initializing</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">database</span><span class="p">.</span><span class="w"> </span><span class="nx">See</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">InnerException</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">details</span><span class="p">.</span><span class="w"> </span><span class="o">---&gt;</span><span class="w"> </span><span class="nx">System</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">ProviderIncompatibleException</span><span class="o">:</span><span class="w"> </span><span class="nx">DeleteDatabase</span><span class="w"> </span><span class="nx">n</span><span class="err">&#39;</span><span class="nx">est</span><span class="w"> </span><span class="nx">pas</span><span class="w"> </span><span class="nx">pris</span><span class="w"> </span><span class="nx">en</span><span class="w"> </span><span class="nx">charge</span><span class="w"> </span><span class="nx">par</span><span class="w"> </span><span class="nx">le</span><span class="w"> </span><span class="nx">fournisseur</span><span class="p">.</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">   </span><span class="nx">à</span><span class="w"> </span><span class="nx">System</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">Common</span><span class="p">.</span><span class="nx">DbProviderServices</span><span class="p">.</span><span class="nx">DbDeleteDatabase</span><span class="p">(</span><span class="nx">DbConnection</span><span class="w"> </span><span class="nx">connection</span><span class="p">,</span><span class="w"> </span><span class="nx">Nullable</span><span class="sb">`1 commandTimeout, StoreItemCollection storeItemCollection)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="sb">   ...</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="sb">   à System.Data.Entity.Internal.LazyInternalContext.InitializeDatabase()</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="sb">   à RdvMedecins_01.CreateDB_01.Main(String[] args) dans d:\data\istia-1213\c#\d</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="sb">vp\Entity Framework\RdvMedecins\RdvMedecins-Oracle-01\CreateDB_01.cs:ligne 15</span>
+</code></pre></div></td></tr></table></div>
+<p>La ligne 1 indique que le connecteur ADO.NET de PostgreSQL n&#x27;est pas capable de supprimer la base existante. Exactement comme avec Oracle. Nous sommes amenés alors à construire la base de données [RDVMEDECINS-EF] à la main avec l&#x27;outil [EMS Manager for PostgreSQL]. Nous ne décrivons pas toutes les étapes mais simplement les plus importantes.</p>
+<p>La base PostgreSQL sera la suivante :</p>
+<p><u><strong>Les tables</strong></u></p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000055300000194A4F22C8F.png" style="display:inline-block; margin:4px;width:18.03cm;height:5.339cm;" /></td></tr></table>
+
+<ul>
+<li>en [1], ID est clé primaire de type <em>serial</em>. Ce type PostgreSQL est un entier généré automatiquement par le SGBD.</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000051B00000187C8CE44E3.png" style="display:inline-block; margin:4px;width:17.291cm;height:5.173cm;" /></td></tr></table>
+
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000052A00000187AADB34D7.png" style="display:inline-block; margin:4px;width:17.489cm;height:5.173cm;" /></td></tr></table>
+
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000512000001AA9CF42D51.png" style="display:inline-block; margin:4px;width:17.171cm;height:5.636cm;" /></td></tr></table>
+
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000004B1000001508A641D14.png" style="display:inline-block; margin:4px;width:15.889cm;height:4.445cm;" /></td></tr></table>
+
+<p>Les différentes tables ont les clés primaires et étrangères qu&#x27;avaient ces mêmes tables dans les exemples précédents. Les clés étrangères ont l&#x27;attribut ON DELETE CASCADE.</p>
+<p><u><strong>Les séquences</strong></u></p>
+<p>Comme avec Oracle, nous avons créé ici des séquences. Ce sont des générateurs de nombres consécutifs. Il y en a 5 [1].</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005130000015F9201D879.png" style="display:inline-block; margin:4px;width:17.186cm;height:4.644cm;" /></td></tr></table>
+
+<ul>
+<li>en [2], nous voyons les propriétés de la séquence [CLIENTS_ID_SEQ]. Elle génère des nombres consécutifs de 1 en 1, à partir de 1 jusqu&#x27;à une valeur très grande.</li>
+</ul>
+<p>Toutes les séquences sont bâties sur le même modèle. </p>
+<ul>
+<li>[CLIENTS_ID_seq] sera utilisée pour générer la clé primaire de la table [CLIENTS] ;</li>
+<li>[MEDECINS_ID_seq] sera utilisée pour générer la clé primaire de la table [MEDECINS] ;</li>
+<li>[CRENEAUX_ID_seq] sera utilisée pour générer la clé primaire de la table [CRENEAUX] ;</li>
+<li>[RVS_ID_seq] sera utilisée pour générer la clé primaire de la table [RVS] ;</li>
+<li>[sequence_versions] sera utilisée pour générer les valeurs des colonnes [VERSIONING] de toutes les tables.</li>
+</ul>
+<p><u><strong>Les triggers</strong></u></p>
+<p>Un trigger est une procédure exécutée par le SGBD avant ou après un événement (Insertion, Modification, Suppression) dans une table. Nous en avons 4 [1] :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000004D1000000BEF0605232.png" style="display:inline-block; margin:4px;width:16.312cm;height:2.514cm;" /></td></tr></table>
+
+<p>Regardons le code DDL du trigger [CLIENTS_tr] qui alimente la colonne [VERSIONING] de la table [CLIENTS] :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="ss">&quot;CLIENTS_tr&quot;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span><span class="k">BEFORE</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="ss">&quot;CLIENTS&quot;</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span><span class="w"> </span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="k">EXECUTE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">trigger_versions</span><span class="p">();</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>lignes 1-3 : avant chaque opération INSERT ou UPDATE sur la table [CLIENTS] ;</li>
+<li>ligne 4 : la procédure [public.trigger_versions()] est exécutée.</li>
+</ul>
+<p>La procédure [public.trigger_versions()] est la suivante :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>BEGIN
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>NEW.&quot;VERSIONING&quot;:=nextval(&#39;sequence_versions&#39;);
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>return NEW;
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>END
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>ligne 2 : NEW représente la ligne qui va être insérée ou modifiée. NEW. &quot;VERSIONING &quot; est la colonne [VERSIONING] de cette ligne. On lui affecte la valeur suivante du générateur de nombres &quot; sequence_versions &quot;. Ainsi la colonne [&quot;VERSIONING&quot;] change à chaque INSERT / UPDATE fait sur la table [CLIENTS].</li>
+</ul>
+<p>Les triggers [MEDECINS_tr, CRENEAUX_tr, RVS_tr] sont analogues. Les quatre colonnes [&quot;VERSIONING&quot;] tirent leur valeurs de la même séquence.</p>
+<p>Le script de génération des tables de la base PostgreSQL [RDVMEDECINS-EF] a été placé dans le dossier [RdvMedecins / databases / postgreSQL]. Le lecteur pourra le charger et l&#x27;exécuter pour créer ses tables.</p>
+<p>Ceci fait, les différents programmes du projet peuvent être exécutés. Ils donnent les mêmes résultats qu&#x27;avec SQL Server sauf pour le programme [ModifyDetachedEntities] qui plante pour la même raison qu&#x27;il avait planté avec Oracle. On résoud le problème de la même façon. Il suffit de copier le programme [ModifyDetachedEntities] du projet [RdvMedecins-Oracle-01] dans le projet [RdvMedecins-PostgreSQL-01].</p>
+<p>Le programme [LazyEagerLoading] plante avec l&#x27;exception suivante :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>Exception non gérée : System.Data.EntityCommandExecutionException: Une erreur s&#39;est produite lors de l&#39;exécution de la définition de la commande. Pour plus de détails, consultez l&#39;exception interne. ---&gt; Npgsql.NpgsqlException: ERREUR: 42601: erreur de syntaxe sur ou près de « LEFT »
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>   à Npgsql.NpgsqlState.&lt;ProcessBackendResponses_Ver_3&gt;d__a.MoveNext()
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>   ...
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>   à RdvMedecins_01.LazyEagerLoading.Main(String[] args) dans d:\data\istia-1213\c#\dvp\Entity Framework\RdvMedecins\RdvMedecins-PostgreSQL-01\LazyEagerLoading.cs:ligne 23
+</code></pre></div></td></tr></table></div>
+<p>Le code erroné est le suivant :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span>
+<span class="normal"><a href="#__codelineno-9-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="w">      </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RdvMedecinsContext</span><span class="p">())</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">        </span><span class="c1">// creneau n° 0</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">        </span><span class="n">creneau</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="n">Creneaux</span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="s">&quot;Medecin&quot;</span><span class="p">).</span><span class="n">Single</span><span class="o">&lt;</span><span class="n">Creneau</span><span class="o">&gt;</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">idCreneau</span><span class="p">);</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">creneau</span><span class="p">.</span><span class="n">ShortIdentity</span><span class="p">());</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Ligne n° 1 de l&#x27;exception, l&#x27;erreur signalée fait penser à une jointure car LEFT est un mot clé de la jointure. Parce que la ligne 4 du code ci-dessus, demande le chargement immédiat de la dépendance [Medecin] d&#x27;une entité [Creneau], EF a fait une jointure entre les tables [CRENEAUX] et [MEDECINS]. Mais il semble que le connecteur ADO.NET ait généré un ordre SQL incorrect. Nous réécrivons le code de la façon suivante :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span>
+<span class="normal"><a href="#__codelineno-10-6">6</a></span>
+<span class="normal"><a href="#__codelineno-10-7">7</a></span>
+<span class="normal"><a href="#__codelineno-10-8">8</a></span>
+<span class="normal"><a href="#__codelineno-10-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="w">      </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RdvMedecinsContext</span><span class="p">())</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">        </span><span class="c1">// creneau n° 0</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">        </span><span class="n">creneau</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="n">Creneaux</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">idCreneau</span><span class="p">);</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">creneau</span><span class="p">.</span><span class="n">ShortIdentity</span><span class="p">());</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">        </span><span class="c1">// on force le chargement du médecin associé</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">        </span><span class="c1">// c&#39;est possible car on est encore dans un contexte ouvert</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">        </span><span class="n">Medecin</span><span class="w"> </span><span class="n">medecin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">creneau</span><span class="p">.</span><span class="n">Medecin</span><span class="p">;</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>ligne 4 : on va chercher le créneau sans jointure ;</li>
+<li>ligne 8 : on récupère la dépendance manquante.</li>
+</ul>
+<p>Ca marche. De nouveau on constate que le changement de SGBD a un impact sur le code. En fait ce n&#x27;est pas le SGBD qui est en cause ici mais son connecteur ADO.NET.</p>
+<h2 id="63-architecture-multi-couche-sappuyant-sur-ef-5">6.3. Architecture multi-couche s&#x27;appuyant sur EF 5</h2>
+<p>Nous revenons à notre étude de cas décrite au paragraphe 2.</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005ED0000012F13EEA291.png" style="display:inline-block; margin:4px;width:17.999cm;height:3.595cm;" /></td></tr></table>
+
+<p>Nous allons commencer par construire la couche [DAO] d&#x27;accès aux données. Pour ce faire, nous dupliquons le projet console VS 2012 [RdvMedecins-SqlServer-02] dans [RdvMedecins-PostgreSQL-02] [1] :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005C00000030CC9D6021E.png" style="display:inline-block; margin:4px;width:17.999cm;height:9.537cm;" /></td></tr></table>
+
+<ul>
+<li>en [2], on supprime le projet [RdvMedecins-SqlServer-02] ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005DC00000213C38C1F3F.png" style="display:inline-block; margin:4px;width:17.999cm;height:6.371cm;" /></td></tr></table>
+
+<ul>
+<li>en [3], on ajoute un projet existant à la solution. On le prend dans le dossier [RdvMedecins-PostgreSQL-02] qui vient d&#x27;être créé ;</li>
+<li>en [4], le nouveau projet porte le nom de celui qui a été supprimé. On va changer son nom ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005730000015F1925C733.png" style="display:inline-block; margin:4px;width:17.999cm;height:4.528cm;" /></td></tr></table>
+
+<ul>
+<li>en [5], on a changé le nom du projet ;</li>
+<li>en [6], on modifie certaines de ses propriétés, comme ici le nom de l&#x27;assembly ;</li>
+<li>en [7], le dossier [Models] est supprimé pour être remplacé par le dossier [Models] du projet [RdvMedecins-PostgreSQL-01]. En effet, les deux projets partagent les mêmes modèles.</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000030F000001509FAFD9EE.png" style="display:inline-block; margin:4px;width:10.359cm;height:4.445cm;" /></td></tr></table>
+
+<ul>
+<li>en [8], les références actuelles du projet ;</li>
+<li>en [9], on y a ajouté le connecteur ADO.NET de PostgreSQL avec l&#x27;outil NuGet.</li>
+</ul>
+<p>Dans le fichier [App.config], on remplace les informations de la base SQL Server par celles de la base PostgreSQL. On les trouve dans le fichier [App.config] du projet [RdvMedecins-PostgreSQL-01] :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>  &lt;!-- chaîne de connexion sur la base --&gt;
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>  &lt;connectionStrings&gt;
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>    &lt;add name=&quot;monContexte&quot; connectionString=&quot;Server=127.0.0.1;Port=5432;Database=rdvmedecins-ef;User Id=postgres;Password=postgres;&quot; providerName=&quot;Npgsql&quot; /&gt;
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>  &lt;/connectionStrings&gt;
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>  &lt;!-- le factory provider --&gt;
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>  &lt;system.data&gt;
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a>    &lt;DbProviderFactories&gt;
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a>      &lt;add name=&quot;Npgsql Data Provider&quot; invariant=&quot;Npgsql&quot; support=&quot;FF&quot; description=&quot;.Net Framework Data Provider for Postgresql Server&quot; type=&quot;Npgsql.NpgsqlFactory, Npgsql, Version=2.0.11.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7&quot; /&gt;
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a>    &lt;/DbProviderFactories&gt;
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a>&lt;/system.data&gt;
+</code></pre></div></td></tr></table></div>
+<p>Les objets gérés par Spring changent également. Actuellement on a :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">6</a></span>
+<span class="normal"><a href="#__codelineno-12-7">7</a></span>
+<span class="normal"><a href="#__codelineno-12-8">8</a></span>
+<span class="normal"><a href="#__codelineno-12-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>  &lt;!-- configuration Spring --&gt;
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>  &lt;spring&gt;
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>    &lt;context&gt;
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>      &lt;resource uri=&quot;config://spring/objects&quot; /&gt;
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a>    &lt;/context&gt;
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a>    &lt;objects xmlns=&quot;http://www.springframework.net&quot;&gt;
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a>      &lt;object id=&quot;rdvmedecinsDao&quot; type=&quot;RdvMedecins.Dao.Dao,RdvMedecins-SqlServer-02&quot; /&gt;
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a>    &lt;/objects&gt;
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a>&lt;/spring&gt;
+</code></pre></div></td></tr></table></div>
+<p>La ligne 7 référence l&#x27;assembly du projet [RdvMedecins-SqlServer-02]. L&#x27;assembly est désormais [RdvMedecins-PostgreSQL-02].</p>
+<p>Ceci fait, nous sommes prêts à exécuter le test de la couche [DAO]. Il faut auparavant prendre soin de remplir la base (programme [Fill] du projet [RdvMedecins-PostgreSQL-01]. Le programme de test plante avec l&#x27;exception suivante :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-13-10">10</a></span>
+<span class="normal"><a href="#__codelineno-13-11">11</a></span>
+<span class="normal"><a href="#__codelineno-13-12">12</a></span>
+<span class="normal"><a href="#__codelineno-13-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="mf">2012</span><span class="o">/</span><span class="mf">10</span><span class="o">/</span><span class="mf">12</span><span class="w"> </span><span class="mf">13</span><span class="o">:</span><span class="mf">56</span><span class="o">:</span><span class="mf">27</span><span class="o">:</span><span class="mf">188</span><span class="w"> </span><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span><span class="w">  </span><span class="nx">Spring</span><span class="p">.</span><span class="nx">Context</span><span class="p">.</span><span class="nx">Support</span><span class="p">.</span><span class="nx">XmlApplicationContext</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">A</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="nx">pplicationContext</span><span class="w"> </span><span class="nx">Refresh</span><span class="o">:</span><span class="w"> </span><span class="nx">Completed</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="nx">Liste</span><span class="w"> </span><span class="nx">des</span><span class="w"> </span><span class="nx">clients</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="nx">Client</span><span class="w"> </span><span class="p">[</span><span class="mf">47</span><span class="p">,</span><span class="nx">Mr</span><span class="p">,</span><span class="nx">Jules</span><span class="p">,</span><span class="nx">Martin</span><span class="p">,</span><span class="mf">468</span><span class="p">]</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="nx">Client</span><span class="w"> </span><span class="p">[</span><span class="mf">48</span><span class="p">,</span><span class="nx">Mme</span><span class="p">,</span><span class="nx">Christine</span><span class="p">,</span><span class="nx">German</span><span class="p">,</span><span class="mf">469</span><span class="p">]</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="nx">Client</span><span class="w"> </span><span class="p">[</span><span class="mf">49</span><span class="p">,</span><span class="nx">Mr</span><span class="p">,</span><span class="nx">Jules</span><span class="p">,</span><span class="nx">Jacquard</span><span class="p">,</span><span class="mf">470</span><span class="p">]</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="nx">Client</span><span class="w"> </span><span class="p">[</span><span class="mf">50</span><span class="p">,</span><span class="nx">Melle</span><span class="p">,</span><span class="nx">Brigitte</span><span class="p">,</span><span class="nx">Bistrou</span><span class="p">,</span><span class="mf">471</span><span class="p">]</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="nx">Liste</span><span class="w"> </span><span class="nx">des</span><span class="w"> </span><span class="nx">médecins</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="nx">Medecin</span><span class="w"> </span><span class="p">[</span><span class="mf">42</span><span class="p">,</span><span class="nx">Mme</span><span class="p">,</span><span class="nx">Marie</span><span class="p">,</span><span class="nx">Pelissier</span><span class="p">,</span><span class="mf">472</span><span class="p">]</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="nx">Medecin</span><span class="w"> </span><span class="p">[</span><span class="mf">43</span><span class="p">,</span><span class="nx">Mr</span><span class="p">,</span><span class="nx">Jacques</span><span class="p">,</span><span class="nx">Bromard</span><span class="p">,</span><span class="mf">497</span><span class="p">]</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11"></a><span class="nx">Medecin</span><span class="w"> </span><span class="p">[</span><span class="mf">44</span><span class="p">,</span><span class="nx">Mr</span><span class="p">,</span><span class="nx">Philippe</span><span class="p">,</span><span class="nx">Jandot</span><span class="p">,</span><span class="mf">510</span><span class="p">]</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12"></a><span class="nx">Medecin</span><span class="w"> </span><span class="p">[</span><span class="mf">45</span><span class="p">,</span><span class="nx">Melle</span><span class="p">,</span><span class="nx">Justine</span><span class="p">,</span><span class="nx">Jacquemot</span><span class="p">,</span><span class="mf">511</span><span class="p">]</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13"></a><span class="nx">L</span><span class="s1">&#39;erreur suivante s&#39;</span><span class="nx">est</span><span class="w"> </span><span class="nx">produite</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">RdvMedecinsException</span><span class="p">[</span><span class="mf">3</span><span class="p">,</span><span class="nx">GetCreneauxMedecin</span><span class="p">,</span><span class="nx">Une</span><span class="w"> </span><span class="nx">erreur</span><span class="w"> </span><span class="nx">s</span><span class="s1">&#39;est produite lors de l&#39;</span><span class="nx">exécution</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="nx">la</span><span class="w"> </span><span class="nx">définition</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="nx">la</span><span class="w"> </span><span class="nx">commande</span><span class="p">.</span><span class="w"> </span><span class="nx">Pour</span><span class="w"> </span><span class="nx">plus</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="nx">détails</span><span class="p">,</span><span class="w"> </span><span class="nx">consultez</span><span class="w"> </span><span class="nx">l</span><span class="err">&#39;</span><span class="nx">exception</span><span class="w"> </span><span class="nx">interne</span><span class="p">.]</span>
+</code></pre></div></td></tr></table></div>
+<p>Ligne 13, le message indique que l&#x27;erreur s&#x27;est produite dans la méthode [GetCreneauxMedecin] de la couche [DAO]. Celle-ci est la suivante :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span>
+<span class="normal"><a href="#__codelineno-14-13">13</a></span>
+<span class="normal"><a href="#__codelineno-14-14">14</a></span>
+<span class="normal"><a href="#__codelineno-14-15">15</a></span>
+<span class="normal"><a href="#__codelineno-14-16">16</a></span>
+<span class="normal"><a href="#__codelineno-14-17">17</a></span>
+<span class="normal"><a href="#__codelineno-14-18">18</a></span>
+<span class="normal"><a href="#__codelineno-14-19">19</a></span>
+<span class="normal"><a href="#__codelineno-14-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="w">    </span><span class="c1">// liste des créneaux horaires d&#39;un médecin donné</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Creneau</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetCreneauxMedecin</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">idMedecin</span><span class="p">)</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="w">      </span><span class="c1">// liste des créneaux</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="w">      </span><span class="k">try</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="w">        </span><span class="c1">// ouverture contexte de persistance</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RdvMedecinsContext</span><span class="p">())</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="w">          </span><span class="c1">// on récupère le médecin avec ses créneaux</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11"></a><span class="w">          </span><span class="n">Medecin</span><span class="w"> </span><span class="n">medecin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="n">Medecins</span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="s">&quot;Creneaux&quot;</span><span class="p">).</span><span class="n">Single</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">idMedecin</span><span class="p">);</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="w">          </span><span class="c1">// on retourne la liste des créneaux du médecin</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">medecin</span><span class="p">.</span><span class="n">Creneaux</span><span class="p">.</span><span class="n">ToList</span><span class="o">&lt;</span><span class="n">Creneau</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16"></a><span class="w">      </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">RdvMedecinsException</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GetCreneauxMedecin&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ex</span><span class="p">);</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Ligne 11, on reconnaît le mot clé <em>Include</em> qui a déjà fait planter un précédent programme. Le code précédent peut être remplacé par le suivant :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span>
+<span class="normal"><a href="#__codelineno-15-12">12</a></span>
+<span class="normal"><a href="#__codelineno-15-13">13</a></span>
+<span class="normal"><a href="#__codelineno-15-14">14</a></span>
+<span class="normal"><a href="#__codelineno-15-15">15</a></span>
+<span class="normal"><a href="#__codelineno-15-16">16</a></span>
+<span class="normal"><a href="#__codelineno-15-17">17</a></span>
+<span class="normal"><a href="#__codelineno-15-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="w">    </span><span class="c1">// liste des créneaux horaires d&#39;un médecin donné</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Creneau</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetCreneauxMedecin</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">idMedecin</span><span class="p">)</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="w">      </span><span class="c1">// liste des créneaux</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="w">      </span><span class="k">try</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="w">        </span><span class="c1">// ouverture contexte de persistance</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RdvMedecinsContext</span><span class="p">())</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="w">          </span><span class="c1">// on retourne la liste des créneaux du médecin</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="n">Creneaux</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">MedecinId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">idMedecin</span><span class="p">).</span><span class="n">ToList</span><span class="o">&lt;</span><span class="n">Creneau</span><span class="o">&gt;</span><span class="p">();</span><span class="w"> </span>
+<a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="w">      </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">RdvMedecinsException</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GetCreneauxMedecin&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ex</span><span class="p">);</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Le nouveau code paraît même plus cohérent que l&#x27;ancien. Toujours est-il que cette fois-ci le programme de test passe.</p>
+<p>Nous créons la DLL du projet comme il a été fait pour le projet [RdvMedecins-SqlServer-02] et nous rassemblons l&#x27;ensemble des DLL du projet dans un dossier [lib] créé dans [RdvMedecins-PostgreSQL-02]. Ce seront les références du projet web [RdvMedecins-PostgreSQL-03] qui va suivre.</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000000E2000000E5594A8288.png" style="display:inline-block; margin:4px;width:4.189cm;height:4.24cm;" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+
+<p>Nous sommes désormais prêts pour construire la couche [ASP.NET] de notre aplication :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005EA0000011617109CB3.png" style="display:inline-block; margin:4px;width:17.999cm;height:3.304cm;" /></td></tr></table>
+
+<p>Nous allons partir du projet [RdvMedecins-SqlServer-03]. Nous dupliquons le dossier de ce projet dans [RdvMedecins-PostgreSQL-03] [1] :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000059C000002683692BC67.png" style="display:inline-block; margin:4px;width:17.999cm;height:7.721cm;" /></td></tr></table>
+
+<ul>
+<li>en [2], avec VS 2012 Express pour le web, nous ouvrons la solution du dossier [RdvMedecins-PostgreSQL-03] ;</li>
+<li>en [3], nous changeons et le nom de la solution et le nom du projet ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005CE0000017D56435433.png" style="display:inline-block; margin:4px;width:17.999cm;height:4.614cm;" /></td></tr></table>
+
+<ul>
+<li>en [4], les références actuelles du projet ;</li>
+<li>en [5], on les supprime ;</li>
+<li>en [6], pour les remplacer par des références sur les DLL que nous venons de stocker dans un dossier [lib] du projet [RdvMedecins-PostgreSQL-02].</li>
+</ul>
+<p>Il ne nous reste plus qu&#x27;à modifier le fichier [Web.config] On remplace son contenu actuel par le contenu du fichier [App.config] du projet [RdvMedecins-PostgreSQL-02]. Ceci fait, on exécute le projet web. Il marche. On n&#x27;oubliera pas de remplir la base avant d&#x27;exécuter l&#x27;application web.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://tahe.developpez.com" target="_blank">
+          https://tahe.developpez.com
+        </a>
+        <br>
+        Ce cours-tutoriel écrit par <strong>Serge Tahé</strong> est mis à disposition du public selon les termes de la
+        <em>Licence Creative Commons Attribution – Pas d’Utilisation Commerciale –
+        Partage dans les Mêmes Conditions 3.0 non transposé</em>.
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>

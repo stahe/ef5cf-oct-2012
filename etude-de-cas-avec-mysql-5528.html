@@ -1,0 +1,1361 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Introduction par l'exemple à Entity Framework 5 Code First">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/ef5cf-oct-2012/etude-de-cas-avec-mysql-5528.html">
+      
+      
+        <link rel="prev" href="etude-de-cas-avec-sql-server-express-2012.html">
+      
+      
+        <link rel="next" href="etude-de-cas-avec--oracle-database-express-edition-11g-release-2.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>4. Etude de cas avec MySQL 5.5.28 - Introduction par l'exemple à Entity Framework 5 Code First</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Introduction par l'exemple à Entity Framework 5 Code First";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#4-etude-de-cas-avec-mysql-5528" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Introduction par l&#39;exemple à Entity Framework 5 Code First" class="md-header__button md-logo" aria-label="Introduction par l'exemple à Entity Framework 5 Code First" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Introduction par l'exemple à Entity Framework 5 Code First
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4. Etude de cas avec MySQL 5.5.28
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Passer au mode sombre"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer au mode sombre" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Passer au mode clair"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer au mode clair" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/stahe/ef5cf-oct-2012" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Introduction par l&#39;exemple à Entity Framework 5 Code First" class="md-nav__button md-logo" aria-label="Introduction par l'exemple à Entity Framework 5 Code First" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Introduction par l'exemple à Entity Framework 5 Code First
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/stahe/ef5cf-oct-2012" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="introduction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="letude-de-cas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. L'étude de cas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="etude-de-cas-avec-sql-server-express-2012.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Etude de cas avec SQL Server Express 2012
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Etude de cas avec MySQL 5.5.28
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="etude-de-cas-avec-mysql-5528.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Etude de cas avec MySQL 5.5.28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-installation-des-outils" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Installation des outils
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-creation-de-la-base-a-partir-des-entites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Création de la base à partir des entités
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-architecture-multi-couche-sappuyant-sur-ef-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Architecture multi-couche s&#x27;appuyant sur EF 5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="etude-de-cas-avec--oracle-database-express-edition-11g-release-2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Etude de cas avec  Oracle Database Express Edition 11g Release 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="etude-de-cas-avec--postgresql-921.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Etude de cas avec  PostgreSQL 9.2.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="etude-de-cas-avec--firebird-21.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Etude de cas avec  Firebird 2.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Conclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="4-etude-de-cas-avec-mysql-5528">4. Etude de cas avec MySQL 5.5.28</h1>
+<h2 id="41-installation-des-outils">4.1. Installation des outils</h2>
+<p>Les outils à installer sont les suivants :</p>
+<ul>
+<li>le SGBD : [http://dev.mysql.com/downloads/] ;</li>
+<li>un outil d&#x27;administration : EMS SQL Manager for MySQL Freeware [http://www.sqlmanager.net/fr/products/mysql/manager/download].</li>
+</ul>
+<p>Dans les exemples qui suivent, l&#x27;utilisateur <strong>root</strong> a le mot de passe <strong>root</strong>.</p>
+<p>Lançons MySQL5. ici, nous le faisons à partir de la fenêtre des services Windows [1]. En [2], le SGBD est lancé.</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000063F000002B39BDA5A46.png" style="display:inline-block; margin:4px;width:17.999cm;height:7.777cm;" /></td></tr></table>
+
+<p>Nous lançons maintenant l&#x27;outil [SQL Manager Lite for MySQL] avec lequel on va administrer le SGBD [3].</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005F5000001BD94FC8285.png" style="display:inline-block; margin:4px;width:17.999cm;height:5.251cm;" /></td></tr></table>
+
+<ul>
+<li>en [4], nous créons une nouvelle base ;</li>
+<li>en [5], on indique le nom de la base ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005A3000001FE9771C23F.png" style="display:inline-block; margin:4px;width:17.999cm;height:6.361cm;" /></td></tr></table>
+
+<ul>
+<li>en [5], on se connecte en tant root / root ;</li>
+<li>en [6], on valide l&#x27;ordre SQL qui va être exécuté ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005FA0000030F51CBDD8F.png" style="display:inline-block; margin:4px;width:17.999cm;height:9.211cm;" /></td></tr></table>
+
+<ul>
+<li>en [7], la base a été créée. Elle doit maintennat être enregistrée dans [EMS Manager]. Les informations sont bonnes. On fait [OK] ;</li>
+<li>en [8], on s&#x27;y connecte ;</li>
+<li>en [9], [EMS Manager] affiche la base, pour l&#x27;instant vide.</li>
+</ul>
+<p>Nous allons maintenant connecter un projet VS 2012 à cette base.</p>
+<h2 id="42-creation-de-la-base-a-partir-des-entites">4.2. Création de la base à partir des entités</h2>
+<p>Nous créons le projet console VS 2012 [RdvMedecins-MySQL-01] [1] ci-dessous :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000058500000159A144D204.png" style="display:inline-block; margin:4px;width:17.999cm;height:4.394cm;" /></td></tr></table>
+
+<ul>
+<li>en [2], on ajoute des références au projet via NuGet ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000059B00000174A1C8FAB7.png" style="display:inline-block; margin:4px;width:17.999cm;height:4.665cm;" /></td></tr></table>
+
+<ul>
+<li>en [3], on ajoute la référence EF 5 ;</li>
+<li>en [4], elle est désormais dans les références ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000565000001989C0FB306.png" style="display:inline-block; margin:4px;width:17.999cm;height:5.316cm;" /></td></tr></table>
+
+<ul>
+<li>en [5], on recommence pour ajouter cette fois [MySQL.Data.Entities] qui est un connecteur ADO.NET pour Entity Framework. Pour trouver le paquetage, on peut se faire aider par la zone de recherche [6] ;</li>
+<li>en [7], apparaissent deux références [MySQL.Data.Entities] et [MySQL.Data], la dernière étant une dépendance de la première.</li>
+</ul>
+<p>Maintenant, on va construire le projet [RdvMedecins-MySQL-01] à partir du projet [RdvMedecins-SqlServer-01].</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005C500000209F6C5AEB3.png" style="display:inline-block; margin:4px;width:17.999cm;height:6.348cm;" /></td></tr></table>
+
+<ul>
+<li>en [1], on copie les éléments sélectionnés ;</li>
+<li>en [2], on les colle dans le projet [RdvMedecins-MySQL-01] ;</li>
+<li>en [3], parce qu&#x27;il y a plusieurs programmes avec une méthode [Main], il nous faut préciser le projet de démarrage du projet.</li>
+</ul>
+<p>A ce stade, la génération du projet doit réussir. Maintenant, nous allons modifier le fichier de configuration [App.config] qui configure la chaîne de connexion à la base de données et le <em>DbProviderFactory</em>. Il devient le suivant :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nt">&lt;configuration&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">  </span><span class="nt">&lt;configSections&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">    </span><span class="cm">&lt;!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 --&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">    </span><span class="nt">&lt;section</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;entityFramework&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot;</span><span class="w"> </span><span class="na">requirePermission=</span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">  </span><span class="nt">&lt;/configSections&gt;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">  </span><span class="nt">&lt;startup&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="nt">&lt;supportedRuntime</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;v4.0&quot;</span><span class="w"> </span><span class="na">sku=</span><span class="s">&quot;.NETFramework,Version=v4.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">  </span><span class="nt">&lt;/startup&gt;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">  </span><span class="nt">&lt;entityFramework&gt;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">    </span><span class="nt">&lt;defaultConnectionFactory</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;System.Data.Entity.Infrastructure.SqlConnectionFactory, EntityFramework&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">  </span><span class="nt">&lt;/entityFramework&gt;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">  </span><span class="cm">&lt;!-- chaîne de connexion--&gt;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">  </span><span class="nt">&lt;connectionStrings&gt;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">    </span><span class="nt">&lt;add</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;monContexte&quot;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">         </span><span class="na">connectionString=</span><span class="s">&quot;Server=localhost;Database=rdvmedecins-ef;Uid=root;Pwd=root;&quot;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">         </span><span class="na">providerName=</span><span class="s">&quot;MySql.Data.MySqlClient&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">  </span><span class="nt">&lt;/connectionStrings&gt;</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">  </span><span class="cm">&lt;!-- le factory provider --&gt;</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">  </span><span class="nt">&lt;system.data&gt;</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">    </span><span class="nt">&lt;DbProviderFactories&gt;</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="w">      </span><span class="nt">&lt;add</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MySQL Data Provider&quot;</span><span class="w"> </span><span class="na">invariant=</span><span class="s">&quot;MySql.Data.MySqlClient&quot;</span><span class="w"> </span><span class="na">description=</span><span class="s">&quot;.Net Framework Data Provider for MySQL&quot;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="w">          </span><span class="na">type=</span><span class="s">&quot;MySql.Data.MySqlClient.MySqlClientFactory, MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=C5687FC88969C44D&quot;</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="w">        </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="w">    </span><span class="nt">&lt;/DbProviderFactories&gt;</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="w">  </span><span class="nt">&lt;/system.data&gt;</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>ligne 17 : la chaîne de connexion à la base MySQL [rdvmedecins-ef] que nous avons créée ;</li>
+<li>ligne 24 : la version doit correspondre à celle de la référence [MySql.Data] du projet [1] :</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000003D50000028DB1ACEBFD.png" style="display:inline-block; margin:4px;width:12.979cm;height:8.64cm;" /></td></tr></table>
+
+<p>Il y a un peu de configuration également dans le fichier [Entites.cs] où on précise le nom des tables ainsi que le schéma auquel elles appartiennent. Celui-ci peut changer selon les SGBD. C&#x27;est le cas ici, où il n&#x27;y aura pas de schéma. Le fichier [Entites.cs] évolue comme suit :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>  [Table(&quot;MEDECINS&quot;)]
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>  public class Medecin : Personne
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>  {...}
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>  [Table(&quot;CLIENTS&quot;)]
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>  public class Client : Personne
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>  {...}
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>  [Table(&quot;CRENEAUX&quot;)]
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>  public class Creneau
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>  {...}
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>  [Table(&quot;RVS&quot;)]
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a>  public class Rv
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>  {...}
+</code></pre></div></td></tr></table></div>
+<p>Exécutons le programme [CreateDB_01] [2]. On obtient l&#x27;exception suivante :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>Exception non gérée : System.Data.MetadataException: Le schéma spécifié n&#39;est pas valide. Erreurs :
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>(11,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>(23,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>(33,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>(43,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>   à System.Data.Metadata.Edm.StoreItemCollection.Loader.ThrowOnNonWarningErrors
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>()
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>   ....
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>   à RdvMedecins_01.CreateDB_01.Main(String[] args) dans d:\data\istia-1213\c#\d
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>vp\Entity Framework\RdvMedecins\RdvMedecins-MySQL-01\CreateDB_01.cs:ligne 15
+</code></pre></div></td></tr></table></div>
+<p>La même erreur apparaît quatre fois (lignes 2-5). Le type <em>rowversion</em> fait penser au champ ayant l&#x27;annotation [Timestamp] dans les entités :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>    [Column(&quot;TIMESTAMP&quot;)]
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>    [Timestamp]
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>    public byte[] Timestamp { get; set; }
+</code></pre></div></td></tr></table></div>
+<p>Nous décidons de remplacer ces trois lignes par les suivantes :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>    [ConcurrencyCheck]
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>    [Column(&quot;VERSIONING&quot;)]
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>    public DateTime? Versioning { get; set; }
+</code></pre></div></td></tr></table></div>
+<p>On change le type de la colonne qui passe de <strong>byte[]</strong> à <strong>DateTime?</strong>. On fait cela parce que MySQL a un type [TIMESTAMP] qui représente une date / heure et qu&#x27;une colonne ayant ce type est automatiquement mise à jour par MySQL à chaque fois que la ligne est mise à jour. Cela nous permettra de gérer les accès concurrents.</p>
+<p>L&#x27;annotation [Timestamp] ne peut s&#x27;appliquer qu&#x27;à une colonne de type byte[]. On la remplace par l&#x27;annotation [ConcurrencyCheck]. Ces deux annotations gèrent toutes deux la concurrence d&#x27;accès. Nous faisons cela pour les quatre entités puis nous réexécutons l&#x27;application. Nous obtenons alors l&#x27;erreur suivante :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span>
+<span class="normal"><a href="#__codelineno-5-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="k">Exception</span><span class="w"> </span><span class="n">non</span><span class="w"> </span><span class="n">gérée</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">MySql</span><span class="p">.</span><span class="k">Data</span><span class="p">.</span><span class="n">MySqlClient</span><span class="p">.</span><span class="n">MySqlException</span><span class="p">:</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="k">SQL</span><span class="w"> </span><span class="n">syntax</span><span class="p">;</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">manual</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">corresponds</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">MySQL</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="k">version</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">right</span><span class="w"> </span><span class="n">syntax</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">near</span><span class="w"> </span><span class="s1">&#39;NOT NULL,        `ProductVersion` mediumtext NOT NULL);</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="s1">ALTER TABLE `__MigrationH&#39;</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="mi">5</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">   </span><span class="err">à</span><span class="w"> </span><span class="n">MySql</span><span class="p">.</span><span class="k">Data</span><span class="p">.</span><span class="n">MySqlClient</span><span class="p">.</span><span class="n">MySqlStream</span><span class="p">.</span><span class="n">ReadPacket</span><span class="p">()</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">   </span><span class="err">à</span><span class="w"> </span><span class="n">MySql</span><span class="p">.</span><span class="k">Data</span><span class="p">.</span><span class="n">MySqlClient</span><span class="p">.</span><span class="n">NativeDriver</span><span class="p">.</span><span class="n">GetResult</span><span class="p">(</span><span class="n">Int32</span><span class="o">&amp;</span><span class="w"> </span><span class="n">affectedRow</span><span class="p">,</span><span class="w"> </span><span class="n">Int32</span><span class="o">&amp;</span><span class="w"> </span><span class="n">insertedId</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">   </span><span class="p">...</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">   </span><span class="err">à</span><span class="w"> </span><span class="n">RdvMedecins_01</span><span class="p">.</span><span class="n">CreateDB_01</span><span class="p">.</span><span class="n">Main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="n">dans</span><span class="w"> </span><span class="n">d</span><span class="p">:</span><span class="err">\</span><span class="k">data</span><span class="err">\</span><span class="n">istia</span><span class="o">-</span><span class="mi">1213</span><span class="err">\</span><span class="k">c</span><span class="o">#</span><span class="err">\</span><span class="n">d</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="n">vp</span><span class="err">\</span><span class="n">Entity</span><span class="w"> </span><span class="n">Framework</span><span class="err">\</span><span class="n">RdvMedecins</span><span class="err">\</span><span class="n">RdvMedecins</span><span class="o">-</span><span class="n">MySQL</span><span class="o">-</span><span class="mi">01</span><span class="err">\</span><span class="n">CreateDB_01</span><span class="p">.</span><span class="n">cs</span><span class="p">:</span><span class="n">ligne</span><span class="w"> </span><span class="mi">15</span>
+</code></pre></div></td></tr></table></div>
+<p>La ligne 1 indique une erreur de syntaxe sur le SQL exécuté par MySQL. Comme celui-ci n&#x27;a pas été généré par nous mais par le provider ADO.NET de MySQL, nous ne pouvons pas corriger ce point. Néanmoins, on peut constater que des tables ont été créées [1] ci-dessous :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000062A000002907DD59AC2.png" style="display:inline-block; margin:4px;width:17.999cm;height:7.481cm;" /></td></tr></table>
+
+<ul>
+<li>en [2], on voit la structure de la table [clients] [3].</li>
+</ul>
+<p>Il y a plusieurs modifications à faire sur la base générée :</p>
+<ul>
+<li>le type de la colonne [VERSIONING] ne convient pas. Il faut lui donner le type MySQL [TIMESTAMP] ;</li>
+<li>on se rappelle que la table [rvs] a une contrainte d&#x27;unicité. Elle n&#x27;a pas été créée par cette génération ;</li>
+<li>le connecteur ADO.NET de SQL Server avait généré des clés étrangères avec la clause ON DELETE CASCADE. Le connecteur ADO.NET de MySQL ne l&#x27;a pas fait.</li>
+</ul>
+<p>Comme nous l&#x27;avons fait avec SQL Server, il nous faut donc modifier la base générée. Nous ne montrons pas comment faire les modifications. Nous donnons simplement le script de création de la base :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span>
+<span class="normal"><a href="#__codelineno-6-16">16</a></span>
+<span class="normal"><a href="#__codelineno-6-17">17</a></span>
+<span class="normal"><a href="#__codelineno-6-18">18</a></span>
+<span class="normal"><a href="#__codelineno-6-19">19</a></span>
+<span class="normal"><a href="#__codelineno-6-20">20</a></span>
+<span class="normal"><a href="#__codelineno-6-21">21</a></span>
+<span class="normal"><a href="#__codelineno-6-22">22</a></span>
+<span class="normal"><a href="#__codelineno-6-23">23</a></span>
+<span class="normal"><a href="#__codelineno-6-24">24</a></span>
+<span class="normal"><a href="#__codelineno-6-25">25</a></span>
+<span class="normal"><a href="#__codelineno-6-26">26</a></span>
+<span class="normal"><a href="#__codelineno-6-27">27</a></span>
+<span class="normal"><a href="#__codelineno-6-28">28</a></span>
+<span class="normal"><a href="#__codelineno-6-29">29</a></span>
+<span class="normal"><a href="#__codelineno-6-30">30</a></span>
+<span class="normal"><a href="#__codelineno-6-31">31</a></span>
+<span class="normal"><a href="#__codelineno-6-32">32</a></span>
+<span class="normal"><a href="#__codelineno-6-33">33</a></span>
+<span class="normal"><a href="#__codelineno-6-34">34</a></span>
+<span class="normal"><a href="#__codelineno-6-35">35</a></span>
+<span class="normal"><a href="#__codelineno-6-36">36</a></span>
+<span class="normal"><a href="#__codelineno-6-37">37</a></span>
+<span class="normal"><a href="#__codelineno-6-38">38</a></span>
+<span class="normal"><a href="#__codelineno-6-39">39</a></span>
+<span class="normal"><a href="#__codelineno-6-40">40</a></span>
+<span class="normal"><a href="#__codelineno-6-41">41</a></span>
+<span class="normal"><a href="#__codelineno-6-42">42</a></span>
+<span class="normal"><a href="#__codelineno-6-43">43</a></span>
+<span class="normal"><a href="#__codelineno-6-44">44</a></span>
+<span class="normal"><a href="#__codelineno-6-45">45</a></span>
+<span class="normal"><a href="#__codelineno-6-46">46</a></span>
+<span class="normal"><a href="#__codelineno-6-47">47</a></span>
+<span class="normal"><a href="#__codelineno-6-48">48</a></span>
+<span class="normal"><a href="#__codelineno-6-49">49</a></span>
+<span class="normal"><a href="#__codelineno-6-50">50</a></span>
+<span class="normal"><a href="#__codelineno-6-51">51</a></span>
+<span class="normal"><a href="#__codelineno-6-52">52</a></span>
+<span class="normal"><a href="#__codelineno-6-53">53</a></span>
+<span class="normal"><a href="#__codelineno-6-54">54</a></span>
+<span class="normal"><a href="#__codelineno-6-55">55</a></span>
+<span class="normal"><a href="#__codelineno-6-56">56</a></span>
+<span class="normal"><a href="#__codelineno-6-57">57</a></span>
+<span class="normal"><a href="#__codelineno-6-58">58</a></span>
+<span class="normal"><a href="#__codelineno-6-59">59</a></span>
+<span class="normal"><a href="#__codelineno-6-60">60</a></span>
+<span class="normal"><a href="#__codelineno-6-61">61</a></span>
+<span class="normal"><a href="#__codelineno-6-62">62</a></span>
+<span class="normal"><a href="#__codelineno-6-63">63</a></span>
+<span class="normal"><a href="#__codelineno-6-64">64</a></span>
+<span class="normal"><a href="#__codelineno-6-65">65</a></span>
+<span class="normal"><a href="#__codelineno-6-66">66</a></span>
+<span class="normal"><a href="#__codelineno-6-67">67</a></span>
+<span class="normal"><a href="#__codelineno-6-68">68</a></span>
+<span class="normal"><a href="#__codelineno-6-69">69</a></span>
+<span class="normal"><a href="#__codelineno-6-70">70</a></span>
+<span class="normal"><a href="#__codelineno-6-71">71</a></span>
+<span class="normal"><a href="#__codelineno-6-72">72</a></span>
+<span class="normal"><a href="#__codelineno-6-73">73</a></span>
+<span class="normal"><a href="#__codelineno-6-74">74</a></span>
+<span class="normal"><a href="#__codelineno-6-75">75</a></span>
+<span class="normal"><a href="#__codelineno-6-76">76</a></span>
+<span class="normal"><a href="#__codelineno-6-77">77</a></span>
+<span class="normal"><a href="#__codelineno-6-78">78</a></span>
+<span class="normal"><a href="#__codelineno-6-79">79</a></span>
+<span class="normal"><a href="#__codelineno-6-80">80</a></span>
+<span class="normal"><a href="#__codelineno-6-81">81</a></span>
+<span class="normal"><a href="#__codelineno-6-82">82</a></span>
+<span class="normal"><a href="#__codelineno-6-83">83</a></span>
+<span class="normal"><a href="#__codelineno-6-84">84</a></span>
+<span class="normal"><a href="#__codelineno-6-85">85</a></span>
+<span class="normal"><a href="#__codelineno-6-86">86</a></span>
+<span class="normal"><a href="#__codelineno-6-87">87</a></span>
+<span class="normal"><a href="#__codelineno-6-88">88</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="o">#</span><span class="w"> </span><span class="k">SQL</span><span class="w"> </span><span class="n">Manager</span><span class="w"> </span><span class="n">Lite</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">MySQL</span><span class="w"> </span><span class="mi">5</span><span class="p">.</span><span class="mi">3</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">2</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="o">#</span><span class="w"> </span><span class="c1">---------------------------------------</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="o">#</span><span class="w"> </span><span class="k">Host</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="n">localhost</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="o">#</span><span class="w"> </span><span class="n">Port</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="o">#</span><span class="w"> </span><span class="k">Database</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">rdvmedecins</span><span class="o">-</span><span class="n">ef</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="cm">/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */</span><span class="p">;</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="cm">/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */</span><span class="p">;</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="cm">/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */</span><span class="p">;</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="cm">/*!40101 SET NAMES utf8 */</span><span class="p">;</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="k">SET</span><span class="w"> </span><span class="n">FOREIGN_KEY_CHECKS</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a>
+<a id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="n">USE</span><span class="w"> </span><span class="o">`</span><span class="n">rdvmedecins</span><span class="o">-</span><span class="n">ef</span><span class="o">`</span><span class="p">;</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16"></a>
+<a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="o">#</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="o">#</span><span class="w"> </span><span class="k">Structure</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">`</span><span class="n">clients</span><span class="o">`</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">:</span><span class="w"> </span>
+<a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="o">#</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20"></a>
+<a id="__codelineno-6-21" name="__codelineno-6-21"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">clients</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22"></a><span class="w">  </span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23"></a><span class="w">  </span><span class="o">`</span><span class="n">NOM</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8_general_ci</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24"></a><span class="w">  </span><span class="o">`</span><span class="n">PRENOM</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8_general_ci</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25"></a><span class="w">  </span><span class="o">`</span><span class="n">TITRE</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8_general_ci</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26"></a><span class="w">  </span><span class="o">`</span><span class="k">VERSIONING</span><span class="o">`</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27"></a><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">BTREE</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28"></a><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span>
+<a id="__codelineno-6-29" name="__codelineno-6-29"></a><span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">96</span><span class="w"> </span><span class="n">AVG_ROW_LENGTH</span><span class="o">=</span><span class="mi">4096</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="s1">&#39;utf8&#39;</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="s1">&#39;utf8_general_ci&#39;</span>
+<a id="__codelineno-6-30" name="__codelineno-6-30"></a><span class="k">COMMENT</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<a id="__codelineno-6-31" name="__codelineno-6-31"></a><span class="p">;</span>
+<a id="__codelineno-6-32" name="__codelineno-6-32"></a>
+<a id="__codelineno-6-33" name="__codelineno-6-33"></a><span class="o">#</span>
+<a id="__codelineno-6-34" name="__codelineno-6-34"></a><span class="o">#</span><span class="w"> </span><span class="k">Structure</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">`</span><span class="n">medecins</span><span class="o">`</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">:</span><span class="w"> </span>
+<a id="__codelineno-6-35" name="__codelineno-6-35"></a><span class="o">#</span>
+<a id="__codelineno-6-36" name="__codelineno-6-36"></a>
+<a id="__codelineno-6-37" name="__codelineno-6-37"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">medecins</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-38" name="__codelineno-6-38"></a><span class="w">  </span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<a id="__codelineno-6-39" name="__codelineno-6-39"></a><span class="w">  </span><span class="o">`</span><span class="n">NOM</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8_general_ci</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-40" name="__codelineno-6-40"></a><span class="w">  </span><span class="o">`</span><span class="n">PRENOM</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8_general_ci</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-41" name="__codelineno-6-41"></a><span class="w">  </span><span class="o">`</span><span class="n">TITRE</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8_general_ci</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-42" name="__codelineno-6-42"></a><span class="w">  </span><span class="o">`</span><span class="k">VERSIONING</span><span class="o">`</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<a id="__codelineno-6-43" name="__codelineno-6-43"></a><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">BTREE</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+<a id="__codelineno-6-44" name="__codelineno-6-44"></a><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span>
+<a id="__codelineno-6-45" name="__codelineno-6-45"></a><span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">56</span><span class="w"> </span><span class="n">AVG_ROW_LENGTH</span><span class="o">=</span><span class="mi">4096</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="s1">&#39;utf8&#39;</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="s1">&#39;utf8_general_ci&#39;</span>
+<a id="__codelineno-6-46" name="__codelineno-6-46"></a><span class="k">COMMENT</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<a id="__codelineno-6-47" name="__codelineno-6-47"></a><span class="p">;</span>
+<a id="__codelineno-6-48" name="__codelineno-6-48"></a>
+<a id="__codelineno-6-49" name="__codelineno-6-49"></a><span class="o">#</span>
+<a id="__codelineno-6-50" name="__codelineno-6-50"></a><span class="o">#</span><span class="w"> </span><span class="k">Structure</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">`</span><span class="n">creneaux</span><span class="o">`</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">:</span><span class="w"> </span>
+<a id="__codelineno-6-51" name="__codelineno-6-51"></a><span class="o">#</span>
+<a id="__codelineno-6-52" name="__codelineno-6-52"></a>
+<a id="__codelineno-6-53" name="__codelineno-6-53"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">creneaux</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-54" name="__codelineno-6-54"></a><span class="w">  </span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<a id="__codelineno-6-55" name="__codelineno-6-55"></a><span class="w">  </span><span class="o">`</span><span class="n">HDEBUT</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-56" name="__codelineno-6-56"></a><span class="w">  </span><span class="o">`</span><span class="n">MDEBUT</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-57" name="__codelineno-6-57"></a><span class="w">  </span><span class="o">`</span><span class="n">HFIN</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-58" name="__codelineno-6-58"></a><span class="w">  </span><span class="o">`</span><span class="n">MFIN</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-59" name="__codelineno-6-59"></a><span class="w">  </span><span class="o">`</span><span class="n">MEDECIN_ID</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-60" name="__codelineno-6-60"></a><span class="w">  </span><span class="o">`</span><span class="k">VERSIONING</span><span class="o">`</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<a id="__codelineno-6-61" name="__codelineno-6-61"></a><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">BTREE</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<a id="__codelineno-6-62" name="__codelineno-6-62"></a><span class="w">   </span><span class="k">INDEX</span><span class="w"> </span><span class="o">`</span><span class="n">MEDECIN_ID</span><span class="o">`</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">BTREE</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">MEDECIN_ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<a id="__codelineno-6-63" name="__codelineno-6-63"></a><span class="w">  </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="o">`</span><span class="n">creneaux_ibfk_1</span><span class="o">`</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">MEDECIN_ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="o">`</span><span class="n">medecins</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">NO</span><span class="w"> </span><span class="n">ACTION</span>
+<a id="__codelineno-6-64" name="__codelineno-6-64"></a><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span>
+<a id="__codelineno-6-65" name="__codelineno-6-65"></a><span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">472</span><span class="w"> </span><span class="n">AVG_ROW_LENGTH</span><span class="o">=</span><span class="mi">455</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="s1">&#39;utf8&#39;</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="s1">&#39;utf8_general_ci&#39;</span>
+<a id="__codelineno-6-66" name="__codelineno-6-66"></a><span class="k">COMMENT</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<a id="__codelineno-6-67" name="__codelineno-6-67"></a><span class="p">;</span>
+<a id="__codelineno-6-68" name="__codelineno-6-68"></a>
+<a id="__codelineno-6-69" name="__codelineno-6-69"></a><span class="o">#</span>
+<a id="__codelineno-6-70" name="__codelineno-6-70"></a><span class="o">#</span><span class="w"> </span><span class="k">Structure</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">`</span><span class="n">rvs</span><span class="o">`</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">:</span><span class="w"> </span>
+<a id="__codelineno-6-71" name="__codelineno-6-71"></a><span class="o">#</span>
+<a id="__codelineno-6-72" name="__codelineno-6-72"></a>
+<a id="__codelineno-6-73" name="__codelineno-6-73"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">rvs</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-74" name="__codelineno-6-74"></a><span class="w">  </span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<a id="__codelineno-6-75" name="__codelineno-6-75"></a><span class="w">  </span><span class="o">`</span><span class="n">JOUR</span><span class="o">`</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-76" name="__codelineno-6-76"></a><span class="w">  </span><span class="o">`</span><span class="n">CRENEAU_ID</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-77" name="__codelineno-6-77"></a><span class="w">  </span><span class="o">`</span><span class="n">CLIENT_ID</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-6-78" name="__codelineno-6-78"></a><span class="w">  </span><span class="o">`</span><span class="k">VERSIONING</span><span class="o">`</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<a id="__codelineno-6-79" name="__codelineno-6-79"></a><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">BTREE</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<a id="__codelineno-6-80" name="__codelineno-6-80"></a><span class="w">  </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="o">`</span><span class="n">CRENEAU_ID_JOUR</span><span class="o">`</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">BTREE</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">JOUR</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">CRENEAU_ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<a id="__codelineno-6-81" name="__codelineno-6-81"></a><span class="w">   </span><span class="k">INDEX</span><span class="w"> </span><span class="o">`</span><span class="n">CRENEAU_ID</span><span class="o">`</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">BTREE</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">CRENEAU_ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<a id="__codelineno-6-82" name="__codelineno-6-82"></a><span class="w">   </span><span class="k">INDEX</span><span class="w"> </span><span class="o">`</span><span class="n">CLIENT_ID</span><span class="o">`</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">BTREE</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">CLIENT_ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<a id="__codelineno-6-83" name="__codelineno-6-83"></a><span class="w">  </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="o">`</span><span class="n">rvs_ibfk_2</span><span class="o">`</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">CLIENT_ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="o">`</span><span class="n">clients</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">NO</span><span class="w"> </span><span class="n">ACTION</span><span class="p">,</span>
+<a id="__codelineno-6-84" name="__codelineno-6-84"></a><span class="w">  </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="o">`</span><span class="n">rvs_ibfk_1</span><span class="o">`</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">CRENEAU_ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="o">`</span><span class="n">creneaux</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">ID</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">NO</span><span class="w"> </span><span class="n">ACTION</span>
+<a id="__codelineno-6-85" name="__codelineno-6-85"></a><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span>
+<a id="__codelineno-6-86" name="__codelineno-6-86"></a><span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">28</span><span class="w"> </span><span class="n">AVG_ROW_LENGTH</span><span class="o">=</span><span class="mi">16384</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="s1">&#39;utf8&#39;</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="s1">&#39;utf8_general_ci&#39;</span>
+<a id="__codelineno-6-87" name="__codelineno-6-87"></a><span class="k">COMMENT</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<a id="__codelineno-6-88" name="__codelineno-6-88"></a><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>lignes 22, 38, 54, 74 : les clés primaires ID des tables sont de type AUTO_INCREMENT donc générées par MySQL ;</li>
+<li>lignes 26, 42, 60, 78 : la colonne VERSIONING est de type TIMESTAMP et est mise à jour lors d&#x27;un INSERT ou d&#x27;un UPDATE ;</li>
+<li>ligne 63 : la clé étrangère de la table [creneaux] vers la table [medecins] avec la clause ON DELETE CASCADE ;</li>
+<li>ligne 80 : la contrainte d&#x27;unicité de la table [rvs] ;</li>
+<li>ligne 83 : la clé étrangère de la table [rvs] vers la table [creneaux] avec la clause ON DELETE CASCADE ;</li>
+<li>ligne 84 : la clé étrangère de la table [rvs] vers la table [clients] avec la clause ON DELETE CASCADE ;</li>
+</ul>
+<p>Le script de génération des tables de la base MySQL [rvmedecins-ef] a été placé dans le dossier [RdvMedecins / databases / mysql]. Le lecteur pourra le charger et l&#x27;exécuter pour créer ses tables.</p>
+<p>Ceci fait, les différents programmes du projet peuvent être exécutés. Ils donnent les mêmes résultats qu&#x27;avec SQL Server sauf pour le programme [ModifyDetachedEntities] qui plante. Pour comprendre pourquoi, on peut regarder le résultat du programme [ModifyAtttachedEntities] :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">7</a></span>
+<span class="normal"><a href="#__codelineno-7-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>client1--avant
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>Client [,xx,xx,xx,]
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>client1--après
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>Client [86,xx,xx,xx,]
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>client2
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>Client [86,xx,xx,xx,11/10/2012 11:31:12]
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a>client3
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>Client [86,xx,xx,yy,11/10/2012 11:31:12]
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>lignes 1-2 : un client avant sauvegarde du contexte ;</li>
+<li>lignes 3-4 : le client après la sauvegarde. Il a une clé primaire mais pas de valeur pour son champ [Versioning] alors que SQL Server mettait à jour le champ [Timestamp] de l&#x27;entité.</li>
+</ul>
+<p>Maintenant examinons le code du programme [ModifyDetachedEntities] qui plante :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span>
+<span class="normal"><a href="#__codelineno-8-19">19</a></span>
+<span class="normal"><a href="#__codelineno-8-20">20</a></span>
+<span class="normal"><a href="#__codelineno-8-21">21</a></span>
+<span class="normal"><a href="#__codelineno-8-22">22</a></span>
+<span class="normal"><a href="#__codelineno-8-23">23</a></span>
+<span class="normal"><a href="#__codelineno-8-24">24</a></span>
+<span class="normal"><a href="#__codelineno-8-25">25</a></span>
+<span class="normal"><a href="#__codelineno-8-26">26</a></span>
+<span class="normal"><a href="#__codelineno-8-27">27</a></span>
+<span class="normal"><a href="#__codelineno-8-28">28</a></span>
+<span class="normal"><a href="#__codelineno-8-29">29</a></span>
+<span class="normal"><a href="#__codelineno-8-30">30</a></span>
+<span class="normal"><a href="#__codelineno-8-31">31</a></span>
+<span class="normal"><a href="#__codelineno-8-32">32</a></span>
+<span class="normal"><a href="#__codelineno-8-33">33</a></span>
+<span class="normal"><a href="#__codelineno-8-34">34</a></span>
+<span class="normal"><a href="#__codelineno-8-35">35</a></span>
+<span class="normal"><a href="#__codelineno-8-36">36</a></span>
+<span class="normal"><a href="#__codelineno-8-37">37</a></span>
+<span class="normal"><a href="#__codelineno-8-38">38</a></span>
+<span class="normal"><a href="#__codelineno-8-39">39</a></span>
+<span class="normal"><a href="#__codelineno-8-40">40</a></span>
+<span class="normal"><a href="#__codelineno-8-41">41</a></span>
+<span class="normal"><a href="#__codelineno-8-42">42</a></span>
+<span class="normal"><a href="#__codelineno-8-43">43</a></span>
+<span class="normal"><a href="#__codelineno-8-44">44</a></span>
+<span class="normal"><a href="#__codelineno-8-45">45</a></span>
+<span class="normal"><a href="#__codelineno-8-46">46</a></span>
+<span class="normal"><a href="#__codelineno-8-47">47</a></span>
+<span class="normal"><a href="#__codelineno-8-48">48</a></span>
+<span class="normal"><a href="#__codelineno-8-49">49</a></span>
+<span class="normal"><a href="#__codelineno-8-50">50</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="p">...</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">RdvMedecins_01</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="p">{</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">ModifyDetachedEntities</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">  </span><span class="p">{</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">      </span><span class="n">Client</span><span class="w"> </span><span class="n">client1</span><span class="p">;</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="w">      </span><span class="c1">// on vide la base actuelle</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">      </span><span class="n">Erase</span><span class="p">();</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a><span class="w">      </span><span class="c1">// on ajoute un client</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="w">      </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RdvMedecinsContext</span><span class="p">())</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a><span class="w">        </span><span class="c1">// création client</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="w">        </span><span class="n">client1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Titre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Nom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Prenom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;x&quot;</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19"></a><span class="w">        </span><span class="c1">// ajout du client au contexte</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20"></a><span class="w">        </span><span class="n">context</span><span class="p">.</span><span class="n">Clients</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">client1</span><span class="p">);</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21"></a><span class="w">        </span><span class="c1">// on sauvegarde le contexte</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22"></a><span class="w">        </span><span class="n">context</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+<a id="__codelineno-8-23" name="__codelineno-8-23"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-8-24" name="__codelineno-8-24"></a><span class="w">      </span><span class="c1">// affichage base</span>
+<a id="__codelineno-8-25" name="__codelineno-8-25"></a><span class="w">      </span><span class="n">Dump</span><span class="p">(</span><span class="s">&quot;1-----------------------------&quot;</span><span class="p">);</span>
+<a id="__codelineno-8-26" name="__codelineno-8-26"></a><span class="w">      </span><span class="c1">// client1 n&#39;est pas dans le contexte - on le modifie</span>
+<a id="__codelineno-8-27" name="__codelineno-8-27"></a><span class="w">      </span><span class="n">client1</span><span class="p">.</span><span class="n">Nom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;y&quot;</span><span class="p">;</span>
+<a id="__codelineno-8-28" name="__codelineno-8-28"></a><span class="w">      </span><span class="c1">// modification entité hors contexte</span>
+<a id="__codelineno-8-29" name="__codelineno-8-29"></a><span class="w">      </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RdvMedecinsContext</span><span class="p">())</span>
+<a id="__codelineno-8-30" name="__codelineno-8-30"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-8-31" name="__codelineno-8-31"></a><span class="w">        </span><span class="c1">// ici, on a un nouveau contexte vide</span>
+<a id="__codelineno-8-32" name="__codelineno-8-32"></a><span class="w">        </span><span class="c1">// on met client1 dans le contexte dans un état modifié</span>
+<a id="__codelineno-8-33" name="__codelineno-8-33"></a><span class="w">        </span><span class="n">context</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">client1</span><span class="p">).</span><span class="n">State</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EntityState</span><span class="p">.</span><span class="n">Modified</span><span class="p">;</span>
+<a id="__codelineno-8-34" name="__codelineno-8-34"></a><span class="w">        </span><span class="c1">// on sauvegarde le contexte</span>
+<a id="__codelineno-8-35" name="__codelineno-8-35"></a><span class="w">        </span><span class="n">context</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+<a id="__codelineno-8-36" name="__codelineno-8-36"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-8-37" name="__codelineno-8-37"></a><span class="w">      </span><span class="p">...</span>
+<a id="__codelineno-8-38" name="__codelineno-8-38"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-39" name="__codelineno-8-39"></a>
+<a id="__codelineno-8-40" name="__codelineno-8-40"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Erase</span><span class="p">()</span>
+<a id="__codelineno-8-41" name="__codelineno-8-41"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-8-42" name="__codelineno-8-42"></a><span class="w">      </span><span class="p">...</span>
+<a id="__codelineno-8-43" name="__codelineno-8-43"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-44" name="__codelineno-8-44"></a>
+<a id="__codelineno-8-45" name="__codelineno-8-45"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Dump</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">str</span><span class="p">)</span>
+<a id="__codelineno-8-46" name="__codelineno-8-46"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-8-47" name="__codelineno-8-47"></a><span class="w">      </span><span class="p">...</span>
+<a id="__codelineno-8-48" name="__codelineno-8-48"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-49" name="__codelineno-8-49"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-8-50" name="__codelineno-8-50"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>ligne 20 : un client est sauvegardé. Il a alors sa clé primaire mais par sa version ;</li>
+<li>ligne 33 : une modification est faite avec client1. Elle échoue car il n&#x27;a pas la version qui est en base.</li>
+</ul>
+<p>On résoud le problème en intercalant le code suivant entre les lignes 25 et 26 :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span>
+<span class="normal"><a href="#__codelineno-9-6">6</a></span>
+<span class="normal"><a href="#__codelineno-9-7">7</a></span>
+<span class="normal"><a href="#__codelineno-9-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="w">      </span><span class="c1">// on récupère client1 pour avoir sa version</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">      </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RdvMedecinsContext</span><span class="p">())</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">        </span><span class="c1">// client2 sera dans le contexte</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">        </span><span class="n">Client</span><span class="w"> </span><span class="n">client2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="n">Clients</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">client1</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">        </span><span class="c1">// on fixe la version de client1 à celle de client2</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="w">        </span><span class="n">client1</span><span class="p">.</span><span class="n">Versioning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client2</span><span class="p">.</span><span class="n">Versioning</span><span class="p">;</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Désormais, l&#x27;entité [client1] a la même version qu&#x27;en base et peut donc être utilisée pour une mise à jour de la ligne en base.</p>
+<h2 id="43-architecture-multi-couche-sappuyant-sur-ef-5">4.3. Architecture multi-couche s&#x27;appuyant sur EF 5</h2>
+<p>Nous revenons à notre étude de cas décrite au paragraphe 2.</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005F50000012077918B5B.png" style="display:inline-block; margin:4px;width:17.999cm;height:3.397cm;" /></td></tr></table>
+
+<p>Nous allons commencer par construire la couche [DAO] d&#x27;accès aux données. Pour ce faire, nous créons le projet console VS 2012 [RdvMedecins-MySQL-02] [1] :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005B90000014B6315343F.png" style="display:inline-block; margin:4px;width:17.999cm;height:4.066cm;" /></td></tr></table>
+
+<ul>
+<li>en [2], les références [Common.Logging, EntityFramework, MySql.Data, MySql.Data.Entity, Spring.Core] sont ajoutées avec NuGet ;</li>
+<li>en [3], le dossier [Models] est recopié du projet [RdvMedecins-MySQL-01] ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005670000014406B4BB75.png" style="display:inline-block; margin:4px;width:17.999cm;height:4.216cm;" /></td></tr></table>
+
+<ul>
+<li>en [4], les dossiers [Dao, Exception, Tests] et le fichier [App.config] sont recopiés du projet [RdvMedecins-SqlServer-02] ;</li>
+<li>en [5], le fichier [Program.cs] a été supprimé ;</li>
+<li>en [6], le projet est configuré pour exécuter le programme de test de la couche [DAO].</li>
+</ul>
+<p>Dans le fichier [App.config], on remplace les informations de la base SQL Server par celles de la base MySQL. On les trouve dans le fichier [App.config] du projet [RdvMedecins-MySQL-01] :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>&lt;!-- chaîne de connexion--&gt;
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>  &lt;connectionStrings&gt;
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>    &lt;add name=&quot;monContexte&quot;
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a>         connectionString=&quot;Server=localhost;Database=rdvmedecins-ef;Uid=root;Pwd=root;&quot;
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a>         providerName=&quot;MySql.Data.MySqlClient&quot; /&gt;
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a>  &lt;/connectionStrings&gt;
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a>  &lt;!-- le factory provider --&gt;
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a>  &lt;system.data&gt;
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a>    &lt;DbProviderFactories&gt;
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a>      &lt;add name=&quot;MySQL Data Provider&quot; invariant=&quot;MySql.Data.MySqlClient&quot; description=&quot;.Net Framework Data Provider for MySQL&quot;
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a>          type=&quot;MySql.Data.MySqlClient.MySqlClientFactory, MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=C5687FC88969C44D&quot;
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a>        /&gt;
+<a id="__codelineno-10-13" name="__codelineno-10-13"></a>    &lt;/DbProviderFactories&gt;
+<a id="__codelineno-10-14" name="__codelineno-10-14"></a>  &lt;/system.data&gt;
+</code></pre></div></td></tr></table></div>
+<p>Les objets gérés par Spring changent également. Actuellement on a :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">6</a></span>
+<span class="normal"><a href="#__codelineno-11-7">7</a></span>
+<span class="normal"><a href="#__codelineno-11-8">8</a></span>
+<span class="normal"><a href="#__codelineno-11-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>  &lt;!-- configuration Spring --&gt;
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>  &lt;spring&gt;
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>    &lt;context&gt;
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>      &lt;resource uri=&quot;config://spring/objects&quot; /&gt;
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>    &lt;/context&gt;
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>    &lt;objects xmlns=&quot;http://www.springframework.net&quot;&gt;
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a>      &lt;object id=&quot;rdvmedecinsDao&quot; type=&quot;RdvMedecins.Dao.Dao,RdvMedecins-SqlServer-02&quot; /&gt;
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a>    &lt;/objects&gt;
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a>&lt;/spring&gt;
+</code></pre></div></td></tr></table></div>
+<p>La ligne 7 référence l&#x27;assembly du projet [RdvMedecins-SqlServer-02]. L&#x27;assembly est désormais [RdvMedecins-MySQL-02].</p>
+<p>Ceci fait, nous sommes prêts à exécuter le test de la couche [DAO]. Il faut auparavant prendre soin de remplir la base (programme [Fill] du projet [RdvMedecins-MySQL-01]). Le programme de test réussit.</p>
+<p>Nous créons la DLL du projet comme il a été fait pour le projet [RdvMedecins-SqlServer-02] et nous rassemblons l&#x27;ensemble des DLL du projet dans un dossier [lib] créé dans [RdvMedecins-MySQL-02]. Ce seront les références du projet web [RdvMedecins-MySQL-03] qui va suivre.</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000102000000E037C4810C.png" style="display:inline-block; margin:4px;width:4.78cm;height:4.15cm;" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+
+<p>Nous sommes désormais prêts pour construire la couche [ASP.NET] de notre aplication :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005EA000001198FA111DE.png" style="display:inline-block; margin:4px;width:17.999cm;height:3.341cm;" /></td></tr></table>
+
+<p>Nous allons partir du projet [RdvMedecins-SqlServer-03]. Nous dupliquons le dossier de ce projet dans [RdvMedecins-MySQL-03] [1] :</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005B400000205E86B00AC.png" style="display:inline-block; margin:4px;width:17.999cm;height:6.373cm;" /></td></tr></table>
+
+<ul>
+<li>en [2], avec VS 2012 Express pour le web, nous ouvrons la solution du dossier [RdvMedecins-MySQL-03] ;</li>
+<li>en [3], nous changeons et le nom de la solution et le nom du projet ;</li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000056E0000018E9D1495BD.png" style="display:inline-block; margin:4px;width:17.999cm;height:5.152cm;" /></td></tr></table>
+
+<ul>
+<li>en [4], les références actuellesdu projet ;</li>
+<li>en [5], on les supprime ;</li>
+<li>en [6], pour les remplacer par des références sur les DLL que nous venons de stocker dans un dossier [lib] du projet [RdvMedecins-MySQL-02].</li>
+</ul>
+<p>Il ne nous reste plus qu&#x27;à modifier le fichier [Web.config] On remplace son contenu actuel par le contenu du fichier [App.config] du projet [RdvMedecins-MySQL-02]. Ceci fait, on exécute le projet web. Il marche.</p>
+<h2 id="44-conclusion">4.4. Conclusion</h2>
+<p>Récapitulons ce qui a été fait pour passer du SGBD SQL server au SGBD MySQL :</p>
+<ul>
+<li>le champ qui servait à gérer la concurrence d&#x27;accès aux entités a été changé. Sa version SQL Server était :</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>    [Column(&quot;TIMESTAMP&quot;)]
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>    [Timestamp]
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>    public byte[] Timestamp { get; set; }
+</code></pre></div></td></tr></table></div>
+<p>Elle est devenue :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>    [ConcurrencyCheck]
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>    [Column(&quot;VERSIONING&quot;)]
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>    public DateTime? Versioning { get; set; }
+</code></pre></div></td></tr></table></div>
+<p>avec MySQL ;</p>
+<ul>
+<li>les annotations [Table] qui lient une entité à une table ont été changées ;</li>
+<li>la chaîne de connexion à la base et le [DbProviderFactory] ont été modifiés dans les fichiers de configuration [App.config] et [Web.config] ;</li>
+<li>après sauvegarde en base, une entité SQL Server avait à la fois sa clé primaire et son <em>Timestamp</em>. Avec MySQL, elle avait seulement sa clé primaire. Cela a amené la modification d&#x27;un code.</li>
+</ul>
+<p>Au final, c&#x27;est assez peu de modifications mais il a quand même fallu revoir du code. Nous recommençons la même démarche pour trois autres SGBD :</p>
+<ul>
+<li><strong>Le SGBD Oracle Database Express Edition 11</strong><strong><em>g</em></strong><strong> Release 2 ;</strong></li>
+<li><strong>Le SGBD PostgreSQL 9.2.1 </strong>;</li>
+<li><strong>Le SGBD Firebird 2.1</strong>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://tahe.developpez.com" target="_blank">
+          https://tahe.developpez.com
+        </a>
+        <br>
+        Ce cours-tutoriel écrit par <strong>Serge Tahé</strong> est mis à disposition du public selon les termes de la
+        <em>Licence Creative Commons Attribution – Pas d’Utilisation Commerciale –
+        Partage dans les Mêmes Conditions 3.0 non transposé</em>.
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>
