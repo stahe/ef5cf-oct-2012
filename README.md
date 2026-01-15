@@ -21,9 +21,11 @@ permettant de faire évoluer les technologies (ORM, SGBD) sans impacter l’appl
 
 ## Architecture générale
 
-Le schéma ci-dessous présente l’architecture utilisée dans l’application :
+Le schéma ci-dessous présente les architectures utilisées dans l’application :
 
 ![Architecture ASP.NET avec NHibernate et Spring.NET](https://stahe.github.io/ef5cf-oct-2012/images/10000000000007D200000183315F4E40.png)
+
+![Architecture ASP.NET avec Entity Framework 5 et Spring.NET](https://stahe.github.io/ef5cf-oct-2012/images/10000000000007D7000001825B1CF7DD.png)
 
 ### Description des couches
 
