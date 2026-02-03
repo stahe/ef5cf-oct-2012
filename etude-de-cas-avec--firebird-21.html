@@ -612,69 +612,131 @@
   
 
 
+<p><a id="refheading39823804107930"></a></p>
 <h1 id="7-etude-de-cas-avec-firebird-21">7. Etude de cas avec  Firebird <strong>2.1</strong></h1>
+<p><a id="refheading39825804107930"></a></p>
 <h2 id="71-installation-des-outils">7.1. Installation des outils</h2>
-<p>Les outils à installer sont les suivants :</p>
+<p><span style="color: #000000">Les outils à installer sont les suivants :</span></p>
 <ul>
 <li>le SGBD : [http://www.firebirdsql.org/en/firebird-2-1-5/] ;</li>
 <li>un outil d&#x27;administration : EMS SQL Manager for InterBase/Firebird Freeware [http://www.sqlmanager.net/fr/products/ibfb/manager/download].</li>
 </ul>
-<p>Dans les exemples qui suivent, l&#x27;utilisateur est <strong>sysdba</strong> avec le mot de passe <strong>masterkey</strong>.</p>
-<p>Lançons Firebird puis l&#x27;outil [SQL Manager Lite for Firebird] avec lequel on va administrer le SGBD.</p>
+<p><span style="color: #000000">Dans les exemples qui suivent, l&#x27;utilisateur est </span><strong><span style="color: #000000">sysdba</span></strong><span style="color: #000000"> avec le mot de passe </span><strong><span style="color: #000000">masterkey</span></strong><span style="color: #000000">.</span></p>
+<p><span style="color: #000000">Lançons Firebird puis l&#x27;outil [SQL Manager Lite for Firebird] avec lequel on va administrer le SGBD.</span></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000489000001BC320028A9.png" style="display:inline-block; margin:4px;width:15.36cm;height:5.874cm;" /></td></tr></table>
 
 <ul>
-<li>en [1], nous lançons le SGBD Firebird à partir du Menu Démarrer. Ici, le SGBD n&#x27;a pas été installé comme un service Windows ;</li>
-<li>en [2], le service est démarré. Une icône s&#x27;est installée en bas à droite de l&#x27;écran. Avec un clic droit sur celle-ci, on peut arrêter le SGBD.</li>
+<li><span style="color: #000000">en [1], nous lançons le SGBD Firebird à partir du Menu Démarrer. Ici, le SGBD n&#x27;a pas été installé comme un service Windows ;</span></li>
+<li><span style="color: #000000">en [2], le service est démarré. Une icône s&#x27;est installée en bas à droite de l&#x27;écran. Avec un clic droit sur celle-ci, on peut arrêter le SGBD.</span></li>
 </ul>
-<p>Nous lançons maintenant l&#x27;outil [SQL Manager Lite for Firebird] avec lequel on va administrer le SGBD [3].</p>
+<p><span style="color: #000000">Nous lançons maintenant l&#x27;outil [SQL Manager Lite for Firebird] avec lequel on va administrer le SGBD [3].</span></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000006280000022311E20850.png" style="display:inline-block; margin:4px;width:17.999cm;height:6.248cm;" /></td></tr></table>
 
 <ul>
-<li>en [4], nous créons une nouvelle base ;</li>
-<li>en [5], on accepte ;</li>
+<li><span style="color: #000000">en [4], nous créons une nouvelle base ;</span></li>
+<li><span style="color: #000000">en [5], on accepte ;</span></li>
 </ul>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005FF0000025D783ECCE2.png" style="display:inline-block; margin:4px;width:17.999cm;height:7.094cm;" /></td></tr></table>
 
 <ul>
-<li>en [5], on se connecte en tant que SYSDBA / masterkey ;</li>
-<li>en [6], on désigne l&#x27;emplacement du fichier qui va être créé. En effet, la base va être créée dans un unique fichier ;</li>
-<li>en [7], on valide l&#x27;ordre SQL qui va être exécuté ;</li>
+<li><span style="color: #000000">en [5], on se connecte en tant que SYSDBA / masterkey ;</span></li>
+<li><span style="color: #000000">en [6], on désigne l&#x27;emplacement du fichier qui va être créé. En effet, la base va être créée dans un unique fichier ;</span></li>
+<li><span style="color: #000000">en [7], on valide l&#x27;ordre SQL qui va être exécuté ;</span></li>
 </ul>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000006360000023C89BCF940.png" style="display:inline-block; margin:4px;width:17.999cm;height:6.473cm;" /></td></tr></table>
 
 <ul>
-<li>en [8], la base a été créée. Elle doit maintenant être enregistrée dans [EMS Manager]. Les informations sont bonnes. On fait [OK] ;</li>
-<li>en [9], on s&#x27;y connecte ;</li>
-<li>en [10], [EMS Manager] affiche la base, pour l&#x27;instant vide.</li>
+<li><span style="color: #000000">en [8], la base a été créée. Elle doit maintenant être enregistrée dans [EMS Manager]. Les informations sont bonnes. On fait [OK] ;</span></li>
+<li><span style="color: #000000">en [9], on s&#x27;y connecte ;</span></li>
+<li><span style="color: #000000">en [10], [EMS Manager] affiche la base, pour l&#x27;instant vide.</span></li>
 </ul>
-<p>Nous allons maintenant connecter un projet VS 2012 à cette base.</p>
+<p><span style="color: #000000">Nous allons maintenant connecter un projet VS 2012 à cette base.</span></p>
+<p><a id="refheading39827804107930"></a></p>
 <h2 id="72-creation-de-la-base-a-partir-des-entites">7.2. Création de la base à partir des entités</h2>
-<p>Nous commençons par dupliquer le dossier du projet [RdvMedecins-SqlServer-01] dans [RdvMedecins-Firebird-01] [1] :</p>
+<p><span style="color: #000000">Nous commençons par dupliquer le dossier du projet [RdvMedecins-SqlServer-01] dans [RdvMedecins-Firebird-01] [1] :</span></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000059E00000313F7EE85CB.png" style="display:inline-block; margin:4px;width:17.999cm;height:9.85cm;" /></td></tr></table>
 
 <ul>
-<li>en [2], dans VS 2012, nous supprimons le projet [RdvMedecins-SqlServer-01] de la solution ;</li>
+<li><span style="color: #000000">en [2], dans VS 2012, nous supprimons le projet [RdvMedecins-SqlServer-01] de la solution ;</span></li>
 </ul>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000061E0000028F52A98BEE.png" style="display:inline-block; margin:4px;width:17.999cm;height:7.528cm;" /></td></tr></table>
 
 <ul>
-<li>en [3], le projet a été supprimé ;</li>
-<li>en [4], on en rajoute un autre. Celui-ci est pris dans le dossier [RdvMedecins-Firebird-01] que nous avons créé précédemment ;</li>
+<li><span style="color: #000000">en [3], le projet a été supprimé ;</span></li>
+<li><span style="color: #000000">en [4], on en rajoute un autre. Celui-ci est pris dans le dossier [RdvMedecins-Firebird-01] que nous avons créé précédemment ;</span></li>
 </ul>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000032A0000014F0BB08346.png" style="display:inline-block; margin:4px;width:10.716cm;height:4.433cm;" /></td></tr></table>
 
 <ul>
-<li>en [5], le projet chargé s&#x27;appelle [RdvMedecins-SqlServer-01] ;</li>
-<li>en [6], on change son nom en [RdvMedecins-Firebird-01]</li>
+<li><span style="color: #000000">en [5], le projet chargé s&#x27;appelle [RdvMedecins-SqlServer-01] ;</span></li>
+<li><span style="color: #000000">en [6], on change son nom en [RdvMedecins-Firebird-01]</span></li>
 </ul>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005F00000023FF2CB05B4.png" style="display:inline-block; margin:4px;width:17.999cm;height:6.809cm;" /></td></tr></table>
 
 <ul>
-<li>en [7], on rajoute un autre projet à la solution. Celui-ci est pris dans le dossier [RdvMedecins-SqlServer-01] du projet que nous avons  supprimé de la solution précédemment ;</li>
-<li>en [8], le projet [RdvMedecins-SqlServer-01] a réintégré la solution.</li>
+<li><span style="color: #000000">en [7], on rajoute un autre projet à la solution. Celui-ci est pris dans le dossier [RdvMedecins-SqlServer-01] du projet que nous avons  supprimé de la solution précédemment ;</span></li>
+<li><span style="color: #000000">en [8], le projet [RdvMedecins-SqlServer-01] a réintégré la solution.</span></li>
 </ul>
-<p>Le projet [RdvMedecins-Firebird-01] est identique au projet [RdvMedecins-SqlServer-01]. Il nous faut faire quelques modifications. Dans [App.config], nous allons modifier la chaîne de connexion et le [DbProviderFactory] qu&#x27;on doit adapter à chaque SGBD.</p>
+<p><span style="color: #000000">Le projet [RdvMedecins-Firebird-01] est identique au projet [RdvMedecins-SqlServer-01]. Il nous faut faire quelques modifications. Dans [App.config], nous allons modifier la chaîne de connexion et le [DbProviderFactory] qu&#x27;on doit adapter à chaque SGBD.</span></p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<span class="odt-code-line"><span style="color:#0000ff">&lt;!--</span><span style="color:#008000"> chaîne de connexion sur la base </span><span style="color:#0000ff">--&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">connectionStrings</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">add</span><span style="color:#0000ff"> </span><span style="color:#ff0000">name</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">monContexte</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">connectionString</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">User=SYSDBA;Password=masterkey;Database=D:\data\istia-1213\c#\dvp\Entity Framework\databases\firebird\RDVMEDECINS-EF.GDB;DataSource=localhost;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">Port=3050;Dialect=3;Charset=NONE;Role=;Connection lifetime=15;Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size=8192;ServerType=0;</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">providerName</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">FirebirdSql.Data.FirebirdClient</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> /&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;/</span><span style="color:#a31515">connectionStrings</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;!--</span><span style="color:#008000"> le factory provider </span><span style="color:#0000ff">--&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">system.data</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">DbProviderFactories</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">      &lt;</span><span style="color:#a31515">add</span><span style="color:#0000ff"> </span><span style="color:#ff0000">name</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">Firebird Client Data Provider</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">invariant</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">FirebirdSql.Data.FirebirdClient</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">description</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">.Net Framework Data Provider for Firebird</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">type</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">FirebirdSql.Data.FirebirdClient.FirebirdClientFactory, FirebirdSql.Data.FirebirdClient, Version=2.7.7.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> /&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">    &lt;/</span><span style="color:#a31515">DbProviderFactories</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;/</span><span style="color:#a31515">system.data</span><span style="color:#0000ff">&gt;</span></span>
+</code></pre></div>
+
+<ul>
+<li><span style="color: #000000">ligne 3 : l&#x27;utilisateur et son mot de passe, ainsi que le chemin complet de la base Firebird ;</span></li>
+<li><span style="color: #000000">lignes8-10 : le <em>DbProviderFactory</em>. La ligne 9 référence une DLL [<span style="color: #0000ff">FirebirdSql.Data.FirebirdClient</span>] que nous n&#x27;avons pas. On se la procure avec NuGet [1] :</span></li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000006150000011CB024F99D.png" style="display:inline-block; margin:4px;width:17.999cm;height:3.283cm;" /></td></tr></table>
+
+<ul>
+<li><span style="color: #000000">en [2], dans la zone de recherche on tape le mot clé <em>firebird</em> ;</span></li>
+<li><span style="color: #000000">en [3], on choisit le paquetage [Firebird ADO.NET Data Provider]. C&#x27;est un connecteur ADO.NET pour Firebird ;</span></li>
+</ul>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000041C000002721D31ED68.png" style="display:inline-block; margin:4px;width:13.917cm;height:8.281cm;" /></td></tr></table>
+
+<ul>
+<li><span style="color: #000000">en [4], la nouvelle référence ;</span></li>
+<li><span style="color: #000000">en [5], dans [App.config], il faut mettre la version correcte de la DLL. On la trouve dans ses propriétés.</span></li>
+</ul>
+<p><span style="color: #000000">Dans le fichier [Entites.cs], il faut adapter le schéma des tables qui vont être générées :</span></p>
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<span class="odt-code-line">  [<span style="color:#2b91af">Table</span>(<span style="color:#a31515">&quot;MEDECINS&quot;</span>)]</span>
+<span class="odt-code-line"><span style="color:#000000">  </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">class</span><span style="color:#000000"> </span><span style="color:#2b91af">Medecin</span><span style="color:#000000"> : </span><span style="color:#2b91af">Personne</span></span>
+<span class="odt-code-line">  {...}</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">  [<span style="color:#2b91af">Table</span>(<span style="color:#a31515">&quot;CLIENTS&quot;</span>)]</span>
+<span class="odt-code-line"><span style="color:#000000">  </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">class</span><span style="color:#000000"> </span><span style="color:#2b91af">Client</span><span style="color:#000000"> : </span><span style="color:#2b91af">Personne</span></span>
+<span class="odt-code-line">  {...}</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">  [<span style="color:#2b91af">Table</span>(<span style="color:#a31515">&quot;CRENEAUX&quot;</span>)]</span>
+<span class="odt-code-line"><span style="color:#000000">  </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">class</span><span style="color:#000000"> </span><span style="color:#2b91af">Creneau</span></span>
+<span class="odt-code-line">  {...}</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">  [<span style="color:#2b91af">Table</span>(<span style="color:#a31515">&quot;RVS&quot;</span>)]</span>
+<span class="odt-code-line"><span style="color:#000000">  </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">class</span><span style="color:#000000"> </span><span style="color:#2b91af">Rv</span></span>
+<span class="odt-code-line">  {...}</span>
+</code></pre></div>
+
+<p><span style="color: #000000">Ici, les tables n&#x27;ont pas de schéma.</span></p>
+<p><span style="color: #000000">Nous configurons l&#x27;exécution du projet :</span></p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000034B0000012B5D7C3ED0.png" style="display:inline-block; margin:4px;width:11.153cm;height:3.956cm;" /></td></tr></table>
+
+<ul>
+<li><span style="color: #000000">en [1], on donne un autre nom à l&#x27;assembly qui va être généré ;</span></li>
+<li><span style="color: #000000">en [2], ainsi qu&#x27;un autre espace de noms par défaut ;</span></li>
+<li><span style="color: #000000">en [3], on désigne le programme à exécuter.</span></li>
+</ul>
+<p><span style="color: #000000">A ce stade, il n&#x27;y a pas d&#x27;erreurs de compilation. Exécutons le programme [CreateDB_01]. On obtient l&#x27;exception suivante :</span></p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
@@ -684,130 +746,51 @@
 <span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
 <span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
 <span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>&lt;!-- chaîne de connexion sur la base --&gt;
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>  &lt;connectionStrings&gt;
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>    &lt;add name=&quot;monContexte&quot; connectionString=&quot;User=SYSDBA;Password=masterkey;Database=D:\data\istia-1213\c#\dvp\Entity Framework\databases\firebird\RDVMEDECINS-EF.GDB;DataSource=localhost;
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>Port=3050;Dialect=3;Charset=NONE;Role=;Connection lifetime=15;Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size=8192;ServerType=0;&quot; providerName=&quot;FirebirdSql.Data.FirebirdClient&quot; /&gt;
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>  &lt;/connectionStrings&gt;
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>  &lt;!-- le factory provider --&gt;
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>  &lt;system.data&gt;
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a>    &lt;DbProviderFactories&gt;
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a>      &lt;add name=&quot;Firebird Client Data Provider&quot; invariant=&quot;FirebirdSql.Data.FirebirdClient&quot; description=&quot;.Net Framework Data Provider for Firebird&quot; type=&quot;FirebirdSql.Data.FirebirdClient.FirebirdClientFactory, FirebirdSql.Data.FirebirdClient, Version=2.7.7.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c&quot; /&gt;
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>    &lt;/DbProviderFactories&gt;
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a>  &lt;/system.data&gt;
+<span class="normal"><a href="#__codelineno-0-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Exception non gérée : System.Data.MetadataException: Le schéma spécifié n&#39;est pas valide. Erreurs :
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>(11,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>(23,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>(33,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>(43,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>   à System.Data.Metadata.Edm.StoreItemCollection.Loader.ThrowOnNonWarningErrors
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>()
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>   ...
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>   à RdvMedecins_01.CreateDB_01.Main(String[] args) dans d:\data\istia-1213\c#\d
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>vp\Entity Framework\RdvMedecins\RdvMedecins-Oracle-01\CreateDB_01.cs:ligne 15
 </code></pre></div></td></tr></table></div>
-<ul>
-<li>ligne 3 : l&#x27;utilisateur et son mot de passe, ainsi que le chemin complet de la base Firebird ;</li>
-<li>lignes8-10 : le <em>DbProviderFactory</em>. La ligne 9 référence une DLL [FirebirdSql.Data.FirebirdClient] que nous n&#x27;avons pas. On se la procure avec NuGet [1] :</li>
-</ul>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000006150000011CB024F99D.png" style="display:inline-block; margin:4px;width:17.999cm;height:3.283cm;" /></td></tr></table>
+<p><span style="color: #000000">On se rappelle avoir eu la même erreur avec MySQL, Oracle et PostgreSQL. C&#x27;est lié au type du champ </span><em><span style="color: #000000">Timestamp</span></em><span style="color: #000000"> des entités. Nous faisons la même modification qu&#x27;avec les deux SGBD précédents. Dans les entités, nous remplaçons les trois lignes</span></p>
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Column</span><span style="color:#000000">(</span><span style="color:#a31515">&quot;TIMESTAMP&quot;</span><span style="color:#000000">)]</span></span>
+<span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Timestamp</span><span style="color:#000000">]</span></span>
+<span class="odt-code-line"><span style="color:#000000">    </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">byte</span><span style="color:#000000">[] Timestamp { </span><span style="color:#0000ff">get</span><span style="color:#000000">; </span><span style="color:#0000ff">set</span><span style="color:#000000">; }</span></span>
+</code></pre></div>
 
-<ul>
-<li>en [2], dans la zone de recherche on tape le mot clé <em>firebird</em> ;</li>
-<li>en [3], on choisit le paquetage [Firebird ADO.NET Data Provider]. C&#x27;est un connecteur ADO.NET pour Firebird ;</li>
-</ul>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000041C000002721D31ED68.png" style="display:inline-block; margin:4px;width:13.917cm;height:8.281cm;" /></td></tr></table>
+<p><span style="color: #000000"> par les suivantes :</span></p>
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">ConcurrencyCheck</span><span style="color:#000000">]</span></span>
+<span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Column</span><span style="color:#000000">(</span><span style="color:#a31515">&quot;VERSIONING&quot;</span><span style="color:#000000">)]</span></span>
+<span class="odt-code-line"><span style="color:#000000">    </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#2b91af">int</span><span style="color:#000000">? Versioning { </span><span style="color:#0000ff">get</span><span style="color:#000000">; </span><span style="color:#0000ff">set</span><span style="color:#000000">; }</span></span>
+</code></pre></div>
 
-<ul>
-<li>en [4], la nouvelle référence ;</li>
-<li>en [5], dans [App.config], il faut mettre la version correcte de la DLL. On la trouve dans ses propriétés.</li>
-</ul>
-<p>Dans le fichier [Entites.cs], il faut adapter le schéma des tables qui vont être générées :</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span>
-<span class="normal"><a href="#__codelineno-1-11">11</a></span>
-<span class="normal"><a href="#__codelineno-1-12">12</a></span>
-<span class="normal"><a href="#__codelineno-1-13">13</a></span>
-<span class="normal"><a href="#__codelineno-1-14">14</a></span>
-<span class="normal"><a href="#__codelineno-1-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>  [Table(&quot;MEDECINS&quot;)]
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>  public class Medecin : Personne
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>  {...}
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a>  [Table(&quot;CLIENTS&quot;)]
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a>  public class Client : Personne
-<a id="__codelineno-1-7" name="__codelineno-1-7"></a>  {...}
-<a id="__codelineno-1-8" name="__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9"></a>  [Table(&quot;CRENEAUX&quot;)]
-<a id="__codelineno-1-10" name="__codelineno-1-10"></a>  public class Creneau
-<a id="__codelineno-1-11" name="__codelineno-1-11"></a>  {...}
-<a id="__codelineno-1-12" name="__codelineno-1-12"></a>
-<a id="__codelineno-1-13" name="__codelineno-1-13"></a>  [Table(&quot;RVS&quot;)]
-<a id="__codelineno-1-14" name="__codelineno-1-14"></a>  public class Rv
-<a id="__codelineno-1-15" name="__codelineno-1-15"></a>  {...}
+<p><span style="color: #000000">On change donc le type de la colonne qui passe de </span><strong><span style="color: #000000">byte[]</span></strong><span style="color: #000000"> à </span><strong><span style="color: #000000">int?</span></strong><span style="color: #000000">. Dans le SGBD, nous utiliserons des procédures stockées pour incrémenter cet entier d&#x27;une unité à chaque fois qu&#x27;une ligne sera insérée ou modifiée.</span></p>
+<p><span style="color: #000000">Nous faisons la modification précédente pour les quatre entités puis nous réexécutons l&#x27;application. Nous obtenons alors l&#x27;erreur suivante :</span></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>Exception non gérée : FirebirdSql.Data.FirebirdClient.FbException: lock time-out on wait transaction object D:\DATA\ISTIA-1213\C#\DVP\ENTITY FRAMEWORK\DATABASES\FIREBIRD\RDVMEDECINS-EF.GDB is in use ---&gt; FirebirdSql.Data.Common.IscException: lock time-out on wait transaction
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>object D:\DATA\ISTIA-1213\C#\DVP\ENTITY FRAMEWORK\DATABASES\FIREBIRD\RDVMEDECINS
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>-EF.GDB is in use
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>...
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>   à RdvMedecins_01.CreateDB_01.Main(String[] args) dans d:\data\istia-1213\c#\dvp\Entity Framework\RdvMedecins\RdvMedecins-Firebird-01\CreateDB_01.cs:ligne 15
 </code></pre></div></td></tr></table></div>
-<p>Ici, les tables n&#x27;ont pas de schéma.</p>
-<p>Nous configurons l&#x27;exécution du projet :</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000034B0000012B5D7C3ED0.png" style="display:inline-block; margin:4px;width:11.153cm;height:3.956cm;" /></td></tr></table>
-
-<ul>
-<li>en [1], on donne un autre nom à l&#x27;assembly qui va être généré ;</li>
-<li>en [2], ainsi qu&#x27;un autre espace de noms par défaut ;</li>
-<li>en [3], on désigne le programme à exécuter.</li>
-</ul>
-<p>A ce stade, il n&#x27;y a pas d&#x27;erreurs de compilation. Exécutons le programme [CreateDB_01]. On obtient l&#x27;exception suivante :</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>Exception non gérée : System.Data.MetadataException: Le schéma spécifié n&#39;est pas valide. Erreurs :
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>(11,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>(23,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>(33,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a>(43,6) : erreur 0040: Le type rowversion n&#39;est pas qualifié avec un espace de noms ou un alias. Seuls les types primitifs peuvent être utilisés sans qualification.
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a>   à System.Data.Metadata.Edm.StoreItemCollection.Loader.ThrowOnNonWarningErrors
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a>()
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a>   ...
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a>   à RdvMedecins_01.CreateDB_01.Main(String[] args) dans d:\data\istia-1213\c#\d
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a>vp\Entity Framework\RdvMedecins\RdvMedecins-Oracle-01\CreateDB_01.cs:ligne 15
-</code></pre></div></td></tr></table></div>
-<p>On se rappelle avoir eu la même erreur avec MySQL, Oracle et PostgreSQL. C&#x27;est lié au type du champ <em>Timestamp</em> des entités. Nous faisons la même modification qu&#x27;avec les deux SGBD précédents. Dans les entités, nous remplaçons les trois lignes</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>    [Column(&quot;TIMESTAMP&quot;)]
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>    [Timestamp]
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>    public byte[] Timestamp { get; set; }
-</code></pre></div></td></tr></table></div>
-<p>par les suivantes :</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>    [ConcurrencyCheck]
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>    [Column(&quot;VERSIONING&quot;)]
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>    public int? Versioning { get; set; }
-</code></pre></div></td></tr></table></div>
-<p>On change donc le type de la colonne qui passe de <strong>byte[]</strong> à <strong>int?</strong>. Dans le SGBD, nous utiliserons des procédures stockées pour incrémenter cet entier d&#x27;une unité à chaque fois qu&#x27;une ligne sera insérée ou modifiée.</p>
-<p>Nous faisons la modification précédente pour les quatre entités puis nous réexécutons l&#x27;application. Nous obtenons alors l&#x27;erreur suivante :</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>Exception non gérée : FirebirdSql.Data.FirebirdClient.FbException: lock time-out on wait transaction object D:\DATA\ISTIA-1213\C#\DVP\ENTITY FRAMEWORK\DATABASES\FIREBIRD\RDVMEDECINS-EF.GDB is in use ---&gt; FirebirdSql.Data.Common.IscException: lock time-out on wait transaction
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>object D:\DATA\ISTIA-1213\C#\DVP\ENTITY FRAMEWORK\DATABASES\FIREBIRD\RDVMEDECINS
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a>-EF.GDB is in use
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a>...
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a>   à RdvMedecins_01.CreateDB_01.Main(String[] args) dans d:\data\istia-1213\c#\dvp\Entity Framework\RdvMedecins\RdvMedecins-Firebird-01\CreateDB_01.cs:ligne 15
-</code></pre></div></td></tr></table></div>
-<p>La ligne 1 indique que la base est utilisée. Ce n&#x27;était pas le cas me semble-t-il et je n&#x27;ai pas réussi à régler ce problème.</p>
-<p>Peu importe. Nous allons construire la base de données [RDVMEDECINS-EF] à la main avec l&#x27;outil [EMS Manager for Firebird]. Nous ne décrivons pas toutes les étapes mais simplement les plus importantes.</p>
-<p>La base Firebird sera la suivante :</p>
-<p><u><strong>Les tables</strong></u></p>
+<p><span style="color: #000000">La ligne 1 indique que la base est utilisée. Ce n&#x27;était pas le cas me semble-t-il et je n&#x27;ai pas réussi à régler ce problème.</span></p>
+<p><span style="color: #000000">Peu importe. Nous allons construire la base de données [RDVMEDECINS-EF] à la main avec l&#x27;outil [EMS Manager for Firebird]. Nous ne décrivons pas toutes les étapes mais simplement les plus importantes.</span></p>
+<p><span style="color: #000000">La base Firebird sera la suivante :</span></p>
+<p><u><strong><span style="color: #000000">Les tables</span></strong></u></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000046E000001663A187D89.png" style="display:inline-block; margin:4px;width:15.002cm;height:4.736cm;" /></td></tr></table>
 
 <ul>
-<li>en [1], ID est une clé primaire avec l&#x27;attribut <em>Autoincrement</em>. Elle sera générée automatiquement par le SGBD ;</li>
+<li><span style="color: #000000">en [1], ID est une clé primaire avec l&#x27;attribut <em>Autoincrement</em>. Elle sera générée automatiquement par le SGBD ;</span></li>
 </ul>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000004770000016D067DD8E6.png" style="display:inline-block; margin:4px;width:15.122cm;height:4.83cm;" /></td></tr></table>
 
@@ -815,160 +798,147 @@
 
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000047A0000018BB7EFF31B.png" style="display:inline-block; margin:4px;width:15.161cm;height:5.226cm;" /></td></tr></table>
 
-<p>Les différentes tables ont les clés primaires et étrangères qu&#x27;avaient ces mêmes tables dans les exemples précédents. Les clés étrangères ont l&#x27;attribut ON DELETE CASCADE.</p>
-<p><u><strong>Les générateurs</strong></u></p>
-<p>Comme avec Oracle et PostgreSQL, nous avons créé des générateurs de nombres consécutifs. Il y en a 5 [1].</p>
+<p><span style="color: #000000">Les différentes tables ont les clés primaires et étrangères qu&#x27;avaient ces mêmes tables dans les exemples précédents. Les clés étrangères ont l&#x27;attribut ON DELETE CASCADE.</span></p>
+<p><u><strong><span style="color: #000000">Les générateurs</span></strong></u></p>
+<p><span style="color: #000000">Comme avec Oracle et PostgreSQL, nous avons créé des générateurs de nombres consécutifs. Il y en a 5 [1].</span></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000171000000DBF7C3425B.png" style="display:inline-block; margin:4px;width:4.882cm;height:2.898cm;" /></td></tr></table>
 
 <ul>
-<li>[CLIENTS_ID_GEN] sera utilisé pour générer la clé primaire de la table [CLIENTS] ;</li>
-<li>[MEDECINS_ID_GEN] sera utilisé pour générer la clé primaire de la table [MEDECINS] ;</li>
-<li>[CRENEAUX_ID_GEN] sera utilisé pour générer la clé primaire de la table [CRENEAUX] ;</li>
-<li>[RVS_ID_GEN] sera utilisé pour générer la clé primaire de la table [RVS] ;</li>
-<li>[VERSIONS_GEN] sera utilisé pour générer les valeurs des colonnes [VERSIONING] de toutes les tables.</li>
+<li><span style="color: #000000">[CLIENTS_ID_GEN] sera utilisé pour générer la clé primaire de la table [CLIENTS] ;</span></li>
+<li><span style="color: #000000">[MEDECINS_ID_GEN] sera utilisé pour générer la clé primaire de la table [MEDECINS] ;</span></li>
+<li><span style="color: #000000">[CRENEAUX_ID_GEN] sera utilisé pour générer la clé primaire de la table [CRENEAUX] ;</span></li>
+<li><span style="color: #000000">[RVS_ID_GEN] sera utilisé pour générer la clé primaire de la table [RVS] ;</span></li>
+<li><span style="color: #000000">[VERSIONS_GEN] sera utilisé pour générer les valeurs des colonnes [VERSIONING] de toutes les tables.</span></li>
 </ul>
-<p><u><strong>Les triggers</strong></u></p>
-<p>Un trigger est une procédure exécutée par le SGBD avant ou après un événement (Insertion, Modification, Suppression) dans une table. Nous en avons 8 [1] :</p>
+<p><u><strong><span style="color: #000000">Les triggers</span></strong></u></p>
+<p><span style="color: #000000">Un trigger est une procédure exécutée par le SGBD avant ou après un événement (Insertion, Modification, Suppression) dans une table. Nous en avons 8 [1] :</span></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000002260000013EAF13000E.png" style="display:inline-block; margin:4px;width:7.276cm;height:4.207cm;" /></td></tr></table>
 
-<p>Regardons le code DDL du trigger [BI_CLIENTS_ID] qui alimente la colonne [ID] de la table [CLIENTS] :</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span>
-<span class="normal"><a href="#__codelineno-6-6">6</a></span>
-<span class="normal"><a href="#__codelineno-6-7">7</a></span>
-<span class="normal"><a href="#__codelineno-6-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>CREATE TRIGGER BI_CLIENTS_ID FOR CLIENTS
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>ACTIVE BEFORE INSERT
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>POSITION 0
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a>AS
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a>BEGIN
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a>  IF (NEW.ID IS NULL) THEN
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a>      NEW.ID = GEN_ID(CLIENTS_ID_GEN, 1);
-<a id="__codelineno-6-8" name="__codelineno-6-8"></a>END^
+<p><span style="color: #000000">Regardons le code DDL du trigger [BI_CLIENTS_ID] qui alimente la colonne [ID] de la table [CLIENTS] :</span></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>CREATE TRIGGER BI_CLIENTS_ID FOR CLIENTS
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>ACTIVE BEFORE INSERT
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>POSITION 0
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>AS
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>BEGIN
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>  IF (NEW.ID IS NULL) THEN
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>      NEW.ID = GEN_ID(CLIENTS_ID_GEN, 1);
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>END^
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 2 : avant chaque insertion dans la table [CLIENTS] ;</li>
-<li>lignes 6-7 : si la colonne ID est NULL, alors on lui affecte la valeur suivante du générateur de nombres [CLIENTS_ID_GEN].</li>
+<li><span style="color: #000000">ligne 2 : avant chaque insertion dans la table [CLIENTS] ;</span></li>
+<li><span style="color: #000000">lignes 6-7 : si la colonne ID est NULL, alors on lui affecte la valeur suivante du générateur de nombres [CLIENTS_ID_GEN].</span></li>
 </ul>
-<p>Les triggers [ BI_CLIENTS_ID,  BI_MEDECINS_ID,  BI_CRENEAUX_ID,  BI_RVS_ID] sont tous construits de la même façon.</p>
-<p>Regardons maintenant le code DDL du trigger [CLIENTS_VERSION_TRIGGER] qui alimente la colonne [VERSIONING] de la table [CLIENTS] :</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span>
-<span class="normal"><a href="#__codelineno-7-4">4</a></span>
-<span class="normal"><a href="#__codelineno-7-5">5</a></span>
-<span class="normal"><a href="#__codelineno-7-6">6</a></span>
-<span class="normal"><a href="#__codelineno-7-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">CLIENTS_VERSION_TRIGGER</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">CLIENTS</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="n">ACTIVE</span><span class="w"> </span><span class="k">BEFORE</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">UPDATE</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="k">POSITION</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="k">AS</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="k">BEGIN</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">  </span><span class="k">NEW</span><span class="p">.</span><span class="ss">&quot;VERSIONING&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GEN_ID</span><span class="p">(</span><span class="n">VERSIONS_GEN</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="k">END</span><span class="o">^</span>
+<p><span style="color: #000000">Les triggers [ BI_CLIENTS_ID,  BI_MEDECINS_ID,  BI_CRENEAUX_ID,  BI_RVS_ID] sont tous construits de la même façon.</span></p>
+<p><span style="color: #000000">Regardons maintenant le code DDL du trigger [CLIENTS_VERSION_TRIGGER] qui alimente la colonne [VERSIONING] de la table [CLIENTS] :</span></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">CLIENTS_VERSION_TRIGGER</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">CLIENTS</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">ACTIVE</span><span class="w"> </span><span class="k">BEFORE</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">UPDATE</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">POSITION</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="k">AS</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="k">BEGIN</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">  </span><span class="k">NEW</span><span class="p">.</span><span class="ss">&quot;VERSIONING&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GEN_ID</span><span class="p">(</span><span class="n">VERSIONS_GEN</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="k">END</span><span class="o">^</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>lignes 1-3 : avant chaque opération INSERT ou UPDATE sur la table [CLIENTS] ;</li>
-<li>ligne 6 : la colonne [&quot;VERSIONING&quot;] reçoit la valeur suivante du générateur de nombres [VERSIONS_GEN]. Ce générateur alimente les colonnes [&quot;VERSIONING&quot;] des quatre tables.</li>
+<li><span style="color: #000000">lignes 1-3 : avant chaque opération INSERT ou UPDATE sur la table [CLIENTS] ;</span></li>
+<li><span style="color: #000000">ligne 6 : la colonne [&quot;VERSIONING&quot;] reçoit la valeur suivante du générateur de nombres [VERSIONS_GEN]. Ce générateur alimente les colonnes [&quot;VERSIONING&quot;] des quatre tables.</span></li>
 </ul>
-<p>Les triggers [MEDECINS_VERSION_TRIGGER, CRENEAUX_VERSION_TRIGGER, RVS_VERSION_TRIGGER] sont analogues.</p>
-<p>Le script de génération des tables de la base Firebird [RDVMEDECINS-EF] a été placé dans le dossier [RdvMedecins / databases / Firebird]. Le lecteur pourra le charger et l&#x27;exécuter pour créer ses tables.</p>
-<p>Ceci fait, les différents programmes du projet peuvent être exécutés. Ils donnent les mêmes résultats qu&#x27;avec SQL Server sauf pour le programme [ModifyDetachedEntities] qui plante pour la même raison qu&#x27;il avait planté avec Oracle et MySQL. On résoud le problème de la même façon. Il suffit de copier le programme [ModifyDetachedEntities] du projet [RdvMedecins-Oracle-01] dans le projet [RdvMedecins-Firebird-01].</p>
+<p><span style="color: #000000">Les triggers [MEDECINS_VERSION_TRIGGER, CRENEAUX_VERSION_TRIGGER, RVS_VERSION_TRIGGER] sont analogues.</span></p>
+<p><span style="color: #000000">Le script de génération des tables de la base Firebird [RDVMEDECINS-EF] a été placé dans le dossier [RdvMedecins / databases / Firebird]. Le lecteur pourra le charger et l&#x27;exécuter pour créer ses tables.</span></p>
+<p><span style="color: #000000">Ceci fait, les différents programmes du projet peuvent être exécutés. Ils donnent les mêmes résultats qu&#x27;avec SQL Server sauf pour le programme [ModifyDetachedEntities] qui plante pour la même raison qu&#x27;il avait planté avec Oracle et MySQL. On résoud le problème de la même façon. Il suffit de copier le programme [ModifyDetachedEntities] du projet [RdvMedecins-Oracle-01] dans le projet [RdvMedecins-Firebird-01].</span></p>
+<p><a id="refheading39829804107930"></a></p>
 <h2 id="73-architecture-multi-couche-sappuyant-sur-ef-5">7.3. Architecture multi-couche s&#x27;appuyant sur EF 5</h2>
-<p>Nous revenons à notre étude de cas décrite au paragraphe 2.</p>
+<p><span style="color: #000000">Nous revenons à notre étude de cas décrite au paragraphe <a href="letude-de-cas.html#etude-de-cas">2</a>.</span></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005E80000012562EE9C27.png" style="display:inline-block; margin:4px;width:17.999cm;height:3.487cm;" /></td></tr></table>
 
-<p>Nous allons commencer par construire la couche [DAO] d&#x27;accès aux données. Pour ce faire, nous dupliquons le projet console VS 2012 [RdvMedecins-SqlServer-02] dans [RdvMedecins-Firebird-02] [1] :</p>
+<p><span style="color: #000000">Nous allons commencer par construire la couche [DAO] d&#x27;accès aux données. Pour ce faire, nous dupliquons le projet console VS 2012 [RdvMedecins-SqlServer-02] dans [RdvMedecins-Firebird-02] [1] :</span></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005B9000003027D45252E.png" style="display:inline-block; margin:4px;width:17.999cm;height:9.458cm;" /></td></tr></table>
 
 <ul>
-<li>en [2], on supprime le projet [RdvMedecins-SqlServer-02] ;</li>
+<li><span style="color: #000000">en [2], on supprime le projet [RdvMedecins-SqlServer-02] ;</span></li>
 </ul>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005EA00000220B54D5B33.png" style="display:inline-block; margin:4px;width:17.999cm;height:6.466cm;" /></td></tr></table>
 
 <ul>
-<li>en [3], on ajoute un projet existant à la solution. On le prend dans le dossier [RdvMedecins-Firebird-02] qui vient d&#x27;être créé ;</li>
-<li>en [4], le nouveau projet porte le nom de celui qui a été supprimé. On va changer son nom ;</li>
+<li><span style="color: #000000">en [3], on ajoute un projet existant à la solution. On le prend dans le dossier [RdvMedecins-Firebird-02] qui vient d&#x27;être créé ;</span></li>
+<li><span style="color: #000000">en [4], le nouveau projet porte le nom de celui qui a été supprimé. On va changer son nom ;</span></li>
 </ul>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000006300000014C028DE9A6.png" style="display:inline-block; margin:4px;width:17.999cm;height:3.771cm;" /></td></tr></table>
 
 <ul>
-<li>en [5], on a changé le nom du projet ;</li>
-<li>en [6], on modifie certaines de ses propriétés, comme ici le nom de l&#x27;assembly ;</li>
-<li>en [7], le dossier [Models] est supprimé pour être remplacé par le dossier [Models] du projet [RdvMedecins-Firebird-01]. En effet, les deux projets partagent les mêmes modèles.</li>
+<li><span style="color: #000000">en [5], on a changé le nom du projet ;</span></li>
+<li><span style="color: #000000">en [6], on modifie certaines de ses propriétés, comme ici le nom de l&#x27;assembly ;</span></li>
+<li><span style="color: #000000">en [7], le dossier [Models] est supprimé pour être remplacé par le dossier [Models] du projet [RdvMedecins-Firebird-01]. En effet, les deux projets partagent les mêmes modèles.</span></li>
 </ul>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000032400000144B71DEA87.png" style="display:inline-block; margin:4px;width:10.636cm;height:4.286cm;" /></td></tr></table>
 
 <ul>
-<li>en [8], les références actuelles du projet ;</li>
-<li>en [9], on y a ajouté le connecteur ADO.NET de Firebird avec l&#x27;outil NuGet.</li>
+<li><span style="color: #000000">en [8], les références actuelles du projet ;</span></li>
+<li><span style="color: #000000">en [9], on y a ajouté le connecteur ADO.NET de Firebird avec l&#x27;outil NuGet.</span></li>
 </ul>
-<p>Dans le fichier [App.config], on remplace les informations de la base SQL Server par celles de la base Firebird. On les trouve dans le fichier [App.config] du projet [RdvMedecins-Firebird-01] :</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-8-10">10</a></span>
-<span class="normal"><a href="#__codelineno-8-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>&lt;!-- chaîne de connexion sur la base --&gt;
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a>  &lt;connectionStrings&gt;
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a>    &lt;add name=&quot;monContexte&quot; connectionString=&quot;User=SYSDBA;Password=masterkey;Database=D:\data\istia-1213\c#\dvp\Entity Framework\databases\firebird\RDVMEDECINS-EF.GDB;DataSource=localhost;
-<a id="__codelineno-8-4" name="__codelineno-8-4"></a>Port=3050;Dialect=3;Charset=NONE;Role=;Connection lifetime=15;Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size=8192;ServerType=0;&quot; providerName=&quot;FirebirdSql.Data.FirebirdClient&quot; /&gt;
-<a id="__codelineno-8-5" name="__codelineno-8-5"></a>  &lt;/connectionStrings&gt;
-<a id="__codelineno-8-6" name="__codelineno-8-6"></a>  &lt;!-- le factory provider --&gt;
-<a id="__codelineno-8-7" name="__codelineno-8-7"></a>  &lt;system.data&gt;
-<a id="__codelineno-8-8" name="__codelineno-8-8"></a>    &lt;DbProviderFactories&gt;
-<a id="__codelineno-8-9" name="__codelineno-8-9"></a>      &lt;add name=&quot;Firebird Client Data Provider&quot; invariant=&quot;FirebirdSql.Data.FirebirdClient&quot; description=&quot;.Net Framework Data Provider for Firebird&quot; type=&quot;FirebirdSql.Data.FirebirdClient.FirebirdClientFactory, FirebirdSql.Data.FirebirdClient, Version=2.7.7.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c&quot; /&gt;
-<a id="__codelineno-8-10" name="__codelineno-8-10"></a>    &lt;/DbProviderFactories&gt;
-<a id="__codelineno-8-11" name="__codelineno-8-11"></a>  &lt;/system.data&gt;
-</code></pre></div></td></tr></table></div>
-<p>Les objets gérés par Spring changent également. Actuellement on a :</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span>
-<span class="normal"><a href="#__codelineno-9-4">4</a></span>
-<span class="normal"><a href="#__codelineno-9-5">5</a></span>
-<span class="normal"><a href="#__codelineno-9-6">6</a></span>
-<span class="normal"><a href="#__codelineno-9-7">7</a></span>
-<span class="normal"><a href="#__codelineno-9-8">8</a></span>
-<span class="normal"><a href="#__codelineno-9-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>  &lt;!-- configuration Spring --&gt;
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>  &lt;spring&gt;
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a>    &lt;context&gt;
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a>      &lt;resource uri=&quot;config://spring/objects&quot; /&gt;
-<a id="__codelineno-9-5" name="__codelineno-9-5"></a>    &lt;/context&gt;
-<a id="__codelineno-9-6" name="__codelineno-9-6"></a>    &lt;objects xmlns=&quot;http://www.springframework.net&quot;&gt;
-<a id="__codelineno-9-7" name="__codelineno-9-7"></a>      &lt;object id=&quot;rdvmedecinsDao&quot; type=&quot;RdvMedecins.Dao.Dao,RdvMedecins-SqlServer-02&quot; /&gt;
-<a id="__codelineno-9-8" name="__codelineno-9-8"></a>    &lt;/objects&gt;
-<a id="__codelineno-9-9" name="__codelineno-9-9"></a>&lt;/spring&gt;
-</code></pre></div></td></tr></table></div>
-<p>La ligne 7 référence l&#x27;assembly du projet [RdvMedecins-SqlServer-02]. L&#x27;assembly est désormais [RdvMedecins-Firebird-02].</p>
-<p>Ceci fait, nous sommes prêts à exécuter le test de la couche [DAO]. Il faut auparavant prendre soin de remplir la base (programme [Fill] du projet [RdvMedecins-Firebird-01]. Le programme de test passe.</p>
-<p>Nous créons la DLL du projet comme il a été fait pour le projet [RdvMedecins-SqlServer-02] et nous rassemblons l&#x27;ensemble des DLL du projet dans un dossier [lib] créé dans [RdvMedecins-Firebird-02]. Ce seront les références du projet web [RdvMedecins-Firebird-03] qui va suivre.</p>
+<p><span style="color: #000000">Dans le fichier [App.config], on remplace les informations de la base SQL Server par celles de la base Firebird. On les trouve dans le fichier [App.config] du projet [RdvMedecins-Firebird-01] :</span></p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<span class="odt-code-line"><span style="color:#0000ff">&lt;!--</span><span style="color:#008000"> chaîne de connexion sur la base </span><span style="color:#0000ff">--&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">connectionStrings</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">add</span><span style="color:#0000ff"> </span><span style="color:#ff0000">name</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">monContexte</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">connectionString</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">User=SYSDBA;Password=masterkey;Database=D:\data\istia-1213\c#\dvp\Entity Framework\databases\firebird\RDVMEDECINS-EF.GDB;DataSource=localhost;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">Port=3050;Dialect=3;Charset=NONE;Role=;Connection lifetime=15;Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size=8192;ServerType=0;</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">providerName</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">FirebirdSql.Data.FirebirdClient</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> /&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;/</span><span style="color:#a31515">connectionStrings</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;!--</span><span style="color:#008000"> le factory provider </span><span style="color:#0000ff">--&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">system.data</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">DbProviderFactories</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">      &lt;</span><span style="color:#a31515">add</span><span style="color:#0000ff"> </span><span style="color:#ff0000">name</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">Firebird Client Data Provider</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">invariant</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">FirebirdSql.Data.FirebirdClient</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">description</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">.Net Framework Data Provider for Firebird</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">type</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">FirebirdSql.Data.FirebirdClient.FirebirdClientFactory, FirebirdSql.Data.FirebirdClient, Version=2.7.7.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> /&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">    &lt;/</span><span style="color:#a31515">DbProviderFactories</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;/</span><span style="color:#a31515">system.data</span><span style="color:#0000ff">&gt;</span></span>
+</code></pre></div>
+
+<p><span style="color: #000000">Les objets gérés par Spring changent également. Actuellement on a :</span></p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;!--</span><span style="color:#008000"> configuration Spring </span><span style="color:#0000ff">--&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">spring</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">context</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">      &lt;</span><span style="color:#a31515">resource</span><span style="color:#0000ff"> </span><span style="color:#ff0000">uri</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">config://spring/objects</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> /&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">    &lt;/</span><span style="color:#a31515">context</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">objects</span><span style="color:#0000ff"> </span><span style="color:#ff0000">xmlns</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">http://www.springframework.net</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">      &lt;</span><span style="color:#a31515">object</span><span style="color:#0000ff"> </span><span style="color:#ff0000">id</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">rdvmedecinsDao</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">type</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">RdvMedecins.Dao.Dao,RdvMedecins-SqlServer-02</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> /&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">    &lt;/</span><span style="color:#a31515">objects</span><span style="color:#0000ff">&gt;</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">&lt;/</span><span style="color:#a31515">spring</span><span style="color:#0000ff">&gt;</span></span>
+</code></pre></div>
+
+<p><span style="color: #000000">La ligne 7 référence l&#x27;assembly du projet [<span style="color: #0000ff">RdvMedecins-SqlServer-02</span>]. L&#x27;assembly est désormais [<span style="color: #0000ff">RdvMedecins-Firebird-02</span>].</span></p>
+<p><span style="color: #000000">Ceci fait, nous sommes prêts à exécuter le test de la couche [DAO]. Il faut auparavant prendre soin de remplir la base (programme [Fill] du projet [<span style="color: #0000ff">RdvMedecins-Firebird-01</span>]. Le programme de test passe.</span></p>
+<p><span style="color: #000000">Nous créons la DLL du projet comme il a été fait pour le projet [<span style="color: #0000ff">RdvMedecins-SqlServer-02</span>] et nous rassemblons l&#x27;ensemble des DLL du projet dans un dossier [lib] créé dans [<span style="color: #0000ff">RdvMedecins-Firebird-02</span>]. Ce seront les références du projet web [<span style="color: #0000ff">RdvMedecins-Firebird-03</span>] qui va suivre.</span></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000000DA000000D5F852DD2B.png" style="display:inline-block; margin:4px;width:4.039cm;height:3.941cm;" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
 
-<p>Nous sommes désormais prêts pour construire la couche [ASP.NET] de notre aplication :</p>
+<p><span style="color: #000000">Nous sommes désormais prêts pour construire la couche [ASP.NET] de notre aplication :</span></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005DB000001252F581312.png" style="display:inline-block; margin:4px;width:17.999cm;height:3.517cm;" /></td></tr></table>
 
-<p>Nous allons partir du projet [RdvMedecins-SqlServer-03]. Nous dupliquons le dossier de ce projet dans [RdvMedecins-Firebird-03] [1] :</p>
+<p><span style="color: #000000">Nous allons partir du projet [RdvMedecins-SqlServer-03]. Nous dupliquons le dossier de ce projet dans [RdvMedecins-Firebird-03] [1] :</span></p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005BD000002CF57C5F3F6.png" style="display:inline-block; margin:4px;width:17.999cm;height:8.809cm;" /></td></tr></table>
 
 <ul>
-<li>en [2], avec VS 2012 Express pour le web, nous ouvrons la solution du dossier [RdvMedecins-Firebird-03] ;</li>
-<li>en [3], nous changeons et le nom de la solution et le nom du projet ;</li>
+<li><span style="color: #000000">en [2], avec VS 2012 Express pour le web, nous ouvrons la solution du dossier [RdvMedecins-Firebird-03] ;</span></li>
+<li><span style="color: #000000">en [3], nous changeons et le nom de la solution et le nom du projet ;</span></li>
 </ul>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000061C00000187D37548BA.png" style="display:inline-block; margin:4px;width:17.999cm;height:4.5cm;" /></td></tr></table>
 
 <ul>
-<li>en [4], les références actuellesdu projet ;</li>
-<li>en [5], on les supprime ;</li>
-<li>en [6], pour les remplacer par des références sur les DLL que nous venons de stocker dans un dossier [lib] du projet [RdvMedecins-Firebird-02].</li>
+<li><span style="color: #000000">en [4], les références actuellesdu projet ;</span></li>
+<li><span style="color: #000000">en [5], on les supprime ;</span></li>
+<li><span style="color: #000000">en [6], pour les remplacer par des références sur les DLL que nous venons de stocker dans un dossier [lib] du projet [RdvMedecins-Firebird-02].</span></li>
 </ul>
-<p>Il ne nous reste plus qu&#x27;à modifier le fichier [Web.config] On remplace son contenu actuel par le contenu du fichier [App.config] du projet [RdvMedecins-Firebird-02]. Ceci fait, on exécute le projet web. Il marche. On n&#x27;oubliera pas de remplir la base avant d&#x27;exécuter l&#x27;application web.</p>
+<p><span style="color: #000000">Il ne nous reste plus qu&#x27;à modifier le fichier [Web.config] On remplace son contenu actuel par le contenu du fichier [App.config] du projet [RdvMedecins-Firebird-02]. Ceci fait, on exécute le projet web. Il marche. On n&#x27;oubliera pas de remplir la base avant d&#x27;exécuter l&#x27;application web.</span></p>
 
 
 

@@ -645,8 +645,11 @@
   
 
 
+<p><a id="refheading39705804107930"></a></p>
 <h1 id="1-introduction">1. Introduction</h1>
+<p><a id="refheading39707804107930"></a></p>
 <h2 id="11-objectif">1.1. Objectif</h2>
+<p>Le PDF du document est disponible |<a href="https://stahe.github.io/ef5cf-oct-2012/ef5cf-oct-2012.pdf">ICI</a>| .</p>
 <p>Entity Framework est un ORM (Object Relational Mapper) initialement créé par Microsoft et maintenant disponible en open source [juillet 2012, http://entityframework.codeplex.com/]. Dans un cours ASP.NET j&#x27;utilise l&#x27;architecture suivante pour une certaine application web :</p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000007D200000183315F4E40.png" style="display:inline-block; margin:4px;width:17.999cm;height:3.478cm;" /></td></tr></table>
 
@@ -676,6 +679,8 @@
 <li>on construira la couche [DAO2] ;</li>
 <li>on connectera l&#x27;application ASP.NET existante à cette nouvelle couche [DAO].</li>
 </ul>
+<p><a id="refheading39709804107930"></a>
+<a id="outils"></a></p>
 <h2 id="12-les-outils-utilises">1.2. Les outils utilisés</h2>
 <p>Les tests ont été réalisés sur un portable HP EliteBook avec Windows 7 pro, un processeur Intel Core i7, 8 Go de RAM. Nous utiliserons C# comme langage de développement.</p>
 <p>Le document utilise les outils suivants tous disponibles gratuitement :</p>
@@ -711,11 +716,13 @@
 <li>un outil d&#x27;administration : EMS SQL Manager for InterBase/Firebird Freeware [http://www.sqlmanager.net/fr/products/ibfb/manager/download].</li>
 </ul>
 <p><strong>LINQPad 4</strong> : un outil d&#x27;apprentissage de LINQ (Language INtegrated Query) [http://www.linqpad.net/, http://www.linqpad.net/GetFile.aspx?LINQPad4.zip].</p>
+<p><a id="refheading39711804107930"></a></p>
 <h2 id="13-les-codes-source">1.3. Les codes source</h2>
 <p>Les codes source des exemples qui vont suivre sont disponibles à l&#x27;URL [<a href="http://tahe.developpez.com/dotnet/ef5cf">http://tahe.developpez.com/dotnet/ef5cf</a>].</p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000006740000038FC08B9EA9.png" style="display:inline-block; margin:4px;width:15.3cm;height:8.44cm;" /></td></tr></table>
 
 <p>Ce sont des projets Visual Studio 2012 [1], rassemblés dans une solution [2]. Dans un dossier [databases], on trouvera un dossier par SGBD utilisé. On y trouve les scripts SQL de génération de la base exemple pour ces SGBD.</p>
+<p><a id="refheading39713804107930"></a></p>
 <h2 id="14-la-methode">1.4. La méthode</h2>
 <p>Pour découvrir <strong>Entity Framework 5 Code First</strong>, je suis d&#x27;abord parti du livre suivant : &quot; <strong>Professional ASP.NET MVC 3</strong> &quot; de Jon Galloway, Phil Haack, Brad Wilson, Scott Allen aux éditions Wrox. Dans l&#x27;application exemple de ce livre, les auteurs utilisent  <strong>Entity Framework</strong> (<strong>EF</strong>) comme ORM. Comme je ne connaissais pas, j&#x27;ai parcouru le net pour en savoir plus. J&#x27;ai ainsi découvert que la version la plus récente était EF 5 et qu&#x27;il y avait des incompatibilités avec EF 4 car le code du livre testé avec EF 5 présentait des erreurs de compilation.</p>
 <p>J&#x27;ai ensuite découvert qu&#x27;il y avait plusieurs façons d&#x27;utiliser EF :</p>
@@ -768,9 +775,11 @@
 <li>construction de la couche [DAO] ;</li>
 <li>construction de la couche web ASP.NET.</li>
 </ul>
+<p><a id="refheading39715804107930"></a></p>
 <h2 id="15-public-vise">1.5. Public visé</h2>
 <p>Le public visé est celui des <strong>débutants</strong>.</p>
 <p>Ce document n&#x27;est pas un cours sur <strong>Entity Framework 5 Code First</strong>. Pour cela, on pourra lire par exemple &quot; <strong>Programming Entity Framework: Code First</strong> &quot;, de Julie Lerman et Rowan Miller aux éditions O&#x27;Reilly. Le document ne vise aucunement  l&#x27;exhaustivité mais expose simplement la démarche que j&#x27;ai utilisée pour appréhender cet ORM. Je pense que celle-ci peut servir à d&#x27;autres personnes abordant EF5. Mon objectif ne dépasse pas ce cadre.</p>
+<p><a id="refheading39717804107930"></a></p>
 <h2 id="16-articles-connexes-sur-developpezcom">1.6. Articles connexes sur developpez.com</h2>
 <p>Le livre cité ci-dessus servira de référence. Il existe par ailleurs des articles consacrés à Entity Framework sur <em>developpez.com</em>. En voici quelques-uns :</p>
 <ul>
