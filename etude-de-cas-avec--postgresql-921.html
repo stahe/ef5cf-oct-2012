@@ -678,7 +678,7 @@
 <li><span style="color: #000000">en [8], le projet [RdvMedecins-SqlServer-01] a réintégré la solution.</span></li>
 </ul>
 <p><span style="color: #000000">Le projet [RdvMedecins-PostgreSQL-01] est identique au projet [RdvMedecins-SqlServer-01]. Il nous faut faire quelques modifications. Dans [App.config], nous allons modifier la chaîne de connexion et le [DbProviderFactory] qu&#x27;on doit adapter à chaque SGBD.</span></p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-xml">
 <span class="odt-code-line"><span style="color:#0000ff">&lt;!--</span><span style="color:#008000"> chaîne de connexion sur la base </span><span style="color:#0000ff">--&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">connectionStrings</span><span style="color:#0000ff">&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">add</span><span style="color:#0000ff"> </span><span style="color:#ff0000">name</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">monContexte</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">connectionString</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">Server=127.0.0.1;Port=5432;Database=rdvmedecins-ef;User Id=postgres;Password=postgres;</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">providerName</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">Npgsql</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> /&gt;</span></span>
@@ -708,7 +708,7 @@
 <li><span style="color: #000000">en [5], dans [App.config], il faut mettre la version correcte de la DLL. On la trouve dans ses propriétés.</span></li>
 </ul>
 <p><span style="color: #000000">Dans le fichier [Entites.cs], il faut adapter le schéma des tables qui vont être générées :</span></p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line">  [<span style="color:#2b91af">Table</span>(<span style="color:#a31515">&quot;MEDECINS&quot;</span>, Schema = <span style="color:#a31515">&quot;public&quot;</span>)]</span>
 <span class="odt-code-line"><span style="color:#000000">  </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">class</span><span style="color:#000000"> </span><span style="color:#2b91af">Medecin</span><span style="color:#000000"> : </span><span style="color:#2b91af">Personne</span></span>
 <span class="odt-code-line">  {...}</span>
@@ -757,14 +757,14 @@
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>vp\Entity Framework\RdvMedecins\RdvMedecins-Oracle-01\CreateDB_01.cs:ligne 15
 </code></pre></div></td></tr></table></div>
 <p><span style="color: #000000">On se rappelle avoir eu la même erreur avec MySQL et Oracle. C&#x27;est lié au type du champ </span><em><span style="color: #000000">Timestamp</span></em><span style="color: #000000"> des entités. Nous faisons la même modification qu&#x27;avec Oracle. Dans les entités, nous remplaçons les trois lignes</span></p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Column</span><span style="color:#000000">(</span><span style="color:#a31515">&quot;TIMESTAMP&quot;</span><span style="color:#000000">)]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Timestamp</span><span style="color:#000000">]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">byte</span><span style="color:#000000">[] Timestamp { </span><span style="color:#0000ff">get</span><span style="color:#000000">; </span><span style="color:#0000ff">set</span><span style="color:#000000">; }</span></span>
 </code></pre></div>
 
 <p><span style="color: #000000"> par les suivantes :</span></p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">ConcurrencyCheck</span><span style="color:#000000">]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Column</span><span style="color:#000000">(</span><span style="color:#a31515">&quot;VERSIONING&quot;</span><span style="color:#000000">)]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#2b91af">int</span><span style="color:#000000">? Versioning { </span><span style="color:#0000ff">get</span><span style="color:#000000">; </span><span style="color:#0000ff">set</span><span style="color:#000000">; }</span></span>
@@ -916,7 +916,7 @@
 <li><span style="color: #000000">en [9], on y a ajouté le connecteur ADO.NET de PostgreSQL avec l&#x27;outil NuGet.</span></li>
 </ul>
 <p><span style="color: #000000">Dans le fichier [App.config], on remplace les informations de la base SQL Server par celles de la base PostgreSQL. On les trouve dans le fichier [App.config] du projet [RdvMedecins-PostgreSQL-01] :</span></p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-xml">
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;!--</span><span style="color:#008000"> chaîne de connexion sur la base </span><span style="color:#0000ff">--&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">connectionStrings</span><span style="color:#0000ff">&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">add</span><span style="color:#0000ff"> </span><span style="color:#ff0000">name</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">monContexte</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">connectionString</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">Server=127.0.0.1;Port=5432;Database=rdvmedecins-ef;User Id=postgres;Password=postgres;</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">providerName</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">Npgsql</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> /&gt;</span></span>
@@ -930,7 +930,7 @@
 </code></pre></div>
 
 <p><span style="color: #000000">Les objets gérés par Spring changent également. Actuellement on a :</span></p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-xml">
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;!--</span><span style="color:#008000"> configuration Spring </span><span style="color:#0000ff">--&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">spring</span><span style="color:#0000ff">&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">context</span><span style="color:#0000ff">&gt;</span></span>

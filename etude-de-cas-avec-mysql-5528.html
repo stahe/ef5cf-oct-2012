@@ -725,7 +725,7 @@
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000003D50000028DB1ACEBFD.png" style="display:inline-block; margin:4px;width:12.979cm;height:8.64cm;" class="odt-zoomable" data-zoom-src="images/10000000000003D50000028DB1ACEBFD.png" /></td></tr></table>
 
 <p><span style="color: #000000">Il y a un peu de configuration également dans le fichier [Entites.cs] où on précise le nom des tables ainsi que le schéma auquel elles appartiennent. Celui-ci peut changer selon les SGBD. C&#x27;est le cas ici, où il n&#x27;y aura pas de schéma. Le fichier [Entites.cs] évolue comme suit :</span></p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line">  [<span style="color:#2b91af">Table</span>(<span style="color:#a31515">&quot;MEDECINS&quot;</span>)]</span>
 <span class="odt-code-line"><span style="color:#000000">  </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">class</span><span style="color:#000000"> </span><span style="color:#2b91af">Medecin</span><span style="color:#000000"> : </span><span style="color:#2b91af">Personne</span></span>
 <span class="odt-code-line">  {...}</span>
@@ -765,14 +765,14 @@
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>vp\Entity Framework\RdvMedecins\RdvMedecins-MySQL-01\CreateDB_01.cs:ligne 15
 </code></pre></div></td></tr></table></div>
 <p><span style="color: #000000">La même erreur apparaît quatre fois (lignes 2-5). Le type </span><em><span style="color: #000000">rowversion</span></em><span style="color: #000000"> fait penser au champ ayant l&#x27;annotation [Timestamp] dans les entités :</span></p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Column</span><span style="color:#000000">(</span><span style="color:#a31515">&quot;TIMESTAMP&quot;</span><span style="color:#000000">)]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Timestamp</span><span style="color:#000000">]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">byte</span><span style="color:#000000">[] Timestamp { </span><span style="color:#0000ff">get</span><span style="color:#000000">; </span><span style="color:#0000ff">set</span><span style="color:#000000">; }</span></span>
 </code></pre></div>
 
 <p><span style="color: #000000">Nous décidons de remplacer ces trois lignes par les suivantes :</span></p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">ConcurrencyCheck</span><span style="color:#000000">]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Column</span><span style="color:#000000">(</span><span style="color:#a31515">&quot;VERSIONING&quot;</span><span style="color:#000000">)]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#2b91af">DateTime</span><span style="color:#000000">? Versioning { </span><span style="color:#0000ff">get</span><span style="color:#000000">; </span><span style="color:#0000ff">set</span><span style="color:#000000">; }</span></span>
@@ -1021,7 +1021,7 @@
 <li><span style="color: #000000">en [6], le projet est configuré pour exécuter le programme de test de la couche [DAO].</span></li>
 </ul>
 <p><span style="color: #000000">Dans le fichier [App.config], on remplace les informations de la base SQL Server par celles de la base MySQL. On les trouve dans le fichier [App.config] du projet [RdvMedecins-MySQL-01] :</span></p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-xml">
 <span class="odt-code-line"><span style="color:#0000ff">&lt;!--</span><span style="color:#008000"> chaîne de connexion</span><span style="color:#0000ff">--&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">connectionStrings</span><span style="color:#0000ff">&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">add</span><span style="color:#0000ff"> </span><span style="color:#ff0000">name</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">monContexte</span><span style="color:#000000">&quot;</span></span>
@@ -1039,7 +1039,7 @@
 </code></pre></div>
 
 <p><span style="color: #000000">Les objets gérés par Spring changent également. Actuellement on a :</span></p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-xml">
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;!--</span><span style="color:#008000"> configuration Spring </span><span style="color:#0000ff">--&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">spring</span><span style="color:#0000ff">&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">context</span><span style="color:#0000ff">&gt;</span></span>
@@ -1080,14 +1080,14 @@
 <ul>
 <li><span style="color: #000000">le champ qui servait à gérer la concurrence d&#x27;accès aux entités a été changé. Sa version SQL Server était :</span></li>
 </ul>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line">    [<span style="color:#2b91af">Column</span>(<span style="color:#a31515">&quot;TIMESTAMP&quot;</span>)]</span>
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Timestamp</span><span style="color:#000000">]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">byte</span><span style="color:#000000">[] Timestamp { </span><span style="color:#0000ff">get</span><span style="color:#000000">; </span><span style="color:#0000ff">set</span><span style="color:#000000">; }</span></span>
 </code></pre></div>
 
 <p><span style="color: #000000">Elle est devenue :</span></p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line">    [<span style="color:#2b91af">ConcurrencyCheck</span>]</span>
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Column</span><span style="color:#000000">(</span><span style="color:#a31515">&quot;VERSIONING&quot;</span><span style="color:#000000">)]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#2b91af">DateTime</span><span style="color:#000000">? Versioning { </span><span style="color:#0000ff">get</span><span style="color:#000000">; </span><span style="color:#0000ff">set</span><span style="color:#000000">; }</span></span>

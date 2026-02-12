@@ -678,7 +678,7 @@
 <li><span style="color: #000000">en [8], le projet [RdvMedecins-SqlServer-01] a réintégré la solution.</span></li>
 </ul>
 <p><span style="color: #000000">Le projet [RdvMedecins-Firebird-01] est identique au projet [RdvMedecins-SqlServer-01]. Il nous faut faire quelques modifications. Dans [App.config], nous allons modifier la chaîne de connexion et le [DbProviderFactory] qu&#x27;on doit adapter à chaque SGBD.</span></p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-xml">
 <span class="odt-code-line"><span style="color:#0000ff">&lt;!--</span><span style="color:#008000"> chaîne de connexion sur la base </span><span style="color:#0000ff">--&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">connectionStrings</span><span style="color:#0000ff">&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">add</span><span style="color:#0000ff"> </span><span style="color:#ff0000">name</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">monContexte</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">connectionString</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">User=SYSDBA;Password=masterkey;Database=D:\data\istia-1213\c#\dvp\Entity Framework\databases\firebird\RDVMEDECINS-EF.GDB;DataSource=localhost;</span></span>
@@ -709,7 +709,7 @@
 <li><span style="color: #000000">en [5], dans [App.config], il faut mettre la version correcte de la DLL. On la trouve dans ses propriétés.</span></li>
 </ul>
 <p><span style="color: #000000">Dans le fichier [Entites.cs], il faut adapter le schéma des tables qui vont être générées :</span></p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line">  [<span style="color:#2b91af">Table</span>(<span style="color:#a31515">&quot;MEDECINS&quot;</span>)]</span>
 <span class="odt-code-line"><span style="color:#000000">  </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">class</span><span style="color:#000000"> </span><span style="color:#2b91af">Medecin</span><span style="color:#000000"> : </span><span style="color:#2b91af">Personne</span></span>
 <span class="odt-code-line">  {...}</span>
@@ -758,14 +758,14 @@
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>vp\Entity Framework\RdvMedecins\RdvMedecins-Oracle-01\CreateDB_01.cs:ligne 15
 </code></pre></div></td></tr></table></div>
 <p><span style="color: #000000">On se rappelle avoir eu la même erreur avec MySQL, Oracle et PostgreSQL. C&#x27;est lié au type du champ </span><em><span style="color: #000000">Timestamp</span></em><span style="color: #000000"> des entités. Nous faisons la même modification qu&#x27;avec les deux SGBD précédents. Dans les entités, nous remplaçons les trois lignes</span></p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Column</span><span style="color:#000000">(</span><span style="color:#a31515">&quot;TIMESTAMP&quot;</span><span style="color:#000000">)]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Timestamp</span><span style="color:#000000">]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#0000ff">byte</span><span style="color:#000000">[] Timestamp { </span><span style="color:#0000ff">get</span><span style="color:#000000">; </span><span style="color:#0000ff">set</span><span style="color:#000000">; }</span></span>
 </code></pre></div>
 
 <p><span style="color: #000000"> par les suivantes :</span></p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-csharp">
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">ConcurrencyCheck</span><span style="color:#000000">]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    [</span><span style="color:#2b91af">Column</span><span style="color:#000000">(</span><span style="color:#a31515">&quot;VERSIONING&quot;</span><span style="color:#000000">)]</span></span>
 <span class="odt-code-line"><span style="color:#000000">    </span><span style="color:#0000ff">public</span><span style="color:#000000"> </span><span style="color:#2b91af">int</span><span style="color:#000000">? Versioning { </span><span style="color:#0000ff">get</span><span style="color:#000000">; </span><span style="color:#0000ff">set</span><span style="color:#000000">; }</span></span>
@@ -822,14 +822,14 @@
 <span class="normal"><a href="#__codelineno-2-5">5</a></span>
 <span class="normal"><a href="#__codelineno-2-6">6</a></span>
 <span class="normal"><a href="#__codelineno-2-7">7</a></span>
-<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>CREATE TRIGGER BI_CLIENTS_ID FOR CLIENTS
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>ACTIVE BEFORE INSERT
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>POSITION 0
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>AS
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a>BEGIN
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a>  IF (NEW.ID IS NULL) THEN
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a>      NEW.ID = GEN_ID(CLIENTS_ID_GEN, 1);
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a>END^
+<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">BI_CLIENTS_ID</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">CLIENTS</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">ACTIVE</span><span class="w"> </span><span class="k">BEFORE</span><span class="w"> </span><span class="k">INSERT</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="k">POSITION</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="k">AS</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="k">BEGIN</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="k">NEW</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">      </span><span class="k">NEW</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GEN_ID</span><span class="p">(</span><span class="n">CLIENTS_ID_GEN</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="k">END</span><span class="o">^</span>
 </code></pre></div></td></tr></table></div>
 <ul>
 <li><span style="color: #000000">ligne 2 : avant chaque insertion dans la table [CLIENTS] ;</span></li>
@@ -889,7 +889,7 @@
 <li><span style="color: #000000">en [9], on y a ajouté le connecteur ADO.NET de Firebird avec l&#x27;outil NuGet.</span></li>
 </ul>
 <p><span style="color: #000000">Dans le fichier [App.config], on remplace les informations de la base SQL Server par celles de la base Firebird. On les trouve dans le fichier [App.config] du projet [RdvMedecins-Firebird-01] :</span></p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-xml">
 <span class="odt-code-line"><span style="color:#0000ff">&lt;!--</span><span style="color:#008000"> chaîne de connexion sur la base </span><span style="color:#0000ff">--&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">connectionStrings</span><span style="color:#0000ff">&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">add</span><span style="color:#0000ff"> </span><span style="color:#ff0000">name</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">monContexte</span><span style="color:#000000">&quot;</span><span style="color:#0000ff"> </span><span style="color:#ff0000">connectionString</span><span style="color:#0000ff">=</span><span style="color:#000000">&quot;</span><span style="color:#0000ff">User=SYSDBA;Password=masterkey;Database=D:\data\istia-1213\c#\dvp\Entity Framework\databases\firebird\RDVMEDECINS-EF.GDB;DataSource=localhost;</span></span>
@@ -904,7 +904,7 @@
 </code></pre></div>
 
 <p><span style="color: #000000">Les objets gérés par Spring changent également. Actuellement on a :</span></p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-text">
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-xml">
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;!--</span><span style="color:#008000"> configuration Spring </span><span style="color:#0000ff">--&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">  &lt;</span><span style="color:#a31515">spring</span><span style="color:#0000ff">&gt;</span></span>
 <span class="odt-code-line"><span style="color:#0000ff">    &lt;</span><span style="color:#a31515">context</span><span style="color:#0000ff">&gt;</span></span>
